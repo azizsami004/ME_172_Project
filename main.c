@@ -6,6 +6,7 @@
 
 // Global variables
 int sentence_counter = 0;
+FILE *result;
 
 // Creating a array of sentence structure.
 struct sentence {
@@ -17,6 +18,7 @@ struct sentence {
 // Helper functions
 void sentence_output(FILE *input, FILE *output);
 void sentence_print(char *line, FILE *output);
+int is_noun(char str[]);
 
 // Features Functions
 void sentence_capitalization();
@@ -52,7 +54,8 @@ int main() {
     //     printf("%d -> %s\n", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
     // }
 
-    sentence_capitalization();
+    // sentence_capitalization();
+    missing_articles();
 
 
     
@@ -70,6 +73,8 @@ void sentence_print(char *line, FILE *output) {
     int len = strlen(line);
 
     for(int i=0; i<len; i++) {
+        // checking for direct sentence
+        if((line[i] == '.' || line[i] == '?' || line[i] == '!') && line[i+1] == '"') continue;
         // Checking end of line
         if(line[i] == '.' || line[i] == '?' || line[i] == '!') {
             // Add punctuation at this index
@@ -121,11 +126,27 @@ void sentence_output(FILE *input, FILE *output) {
     }
 }
 
+int is_noun(char str[]) {
+    FILE* nouns;
+    nouns = fopen("noun_2.txt", "r");
+    if(nouns == NULL) {
+        printf("Error opening file\n");
+        return 0;
+    }
+    char temp[1024];
+    while(fscanf(nouns, "%s", temp) == 1) {
+        // comparing two words using strcmp() function. if strcmp() returns 0 then both words are same.
+        if(strcmp(temp, str) == 0) { 
+            return 1;
+        }
+    }
+    return 0;
+}
+
 // Writing Functions
 void sentence_capitalization() {
-    FILE *result;
     result = fopen("output.txt", "w");
-    fprintf(result, "This is capitalization error..\n");
+    fprintf(result, "This is capitalization error..\n\n");
     for(int i=0; i<sentence_counter; i++) {
         char temp = sentence_array[i].real_sentence[0];
         if(temp >= 97 && temp <= 122) {
@@ -148,5 +169,37 @@ void repeated_word_check(){
 }
 
 void missing_articles(){
-
+    result = fopen("output.txt", "w");
+    fprintf(result, "This is Artice error..\n\n");
+    for(int i=0; i<sentence_counter; i++) {
+        char curr_sentence[1024];
+        strcpy(curr_sentence, sentence_array[i].real_sentence);
+        int sen_length = strlen(curr_sentence);
+        char curr_str[1024], prev_str[1024];
+        int k=0;
+        for(int j=0; j<sen_length; j++) {
+            if(curr_sentence[j] == ' ' || curr_sentence[j] == ',' || curr_sentence[j] == '"' || curr_sentence[j] == '.' || curr_sentence[j] == '?' || curr_sentence[j] == '!' || curr_sentence[j] == '\n') {
+                // end of a word
+                // printf("%s\n", curr_str);
+                if(is_noun(curr_str)) {
+                    // printf("%s\t%s\t", prev_str, curr_str);
+                    if((strcmp(prev_str, "a") == 0) || (strcmp(prev_str, "an") == 0) || (strcmp(prev_str, "the") == 0)) {
+                        //printf("The article error is in the sentence no. %d\n", sentence_array[i].sentence_number);
+                        fprintf(result, "The artice is missing in sentence no. %d\n", sentence_array[i].sentence_number);
+                    }
+                }
+                if(curr_str != '\0') {
+                    strcpy(prev_str, curr_str);
+                }
+                // erasing the current string
+                for(int p=0; p<=1023; p++) {
+                    curr_str[p] = '\0';
+                }
+                k=0;
+            }
+            else {
+                curr_str[k++] = curr_sentence[j];
+            }
+        }
+    }
 }
