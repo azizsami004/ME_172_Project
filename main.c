@@ -8,6 +8,7 @@
 int sentence_counter = 0;
 FILE *result;
 
+
 // Creating a array of sentence structure.
 struct sentence {
     int sentence_number;
@@ -30,8 +31,9 @@ void missing_articles();
 int main() {
     // Defining Files
     FILE *input, *sentences;
-    input = fopen("simple_input.txt", "r");
+    input = fopen("input.txt", "r");
     sentences = fopen("simple_output.txt", "w");
+    result = fopen("output.txt", "w");
 
     // Creating a text file where every line has only one sentence. So that we can work easily with sentences
     sentence_output(input, sentences);
@@ -55,14 +57,15 @@ int main() {
     // }
 
     // sentence_capitalization();
+    repeated_word_check();
     missing_articles();
-
 
     
     // Closing files
     fclose(input);
     fclose(sentences);
     fclose(ss);
+    fclose(result);
 
 
     return 0;
@@ -143,9 +146,16 @@ int is_noun(char str[]) {
     return 0;
 }
 
+int is_article(char str[]) {
+    if(strlen(str) < 1 || strlen(str) > 3) return 0;
+    if(str[0] == 'a' && str[1] == 'n') return 1;
+    else if(str[0] == 't' && str[1] == 'h' && str[2] == 'e') return 1;
+    else if(str[0] == 'a') return 1;
+    else return 0;
+}
+
 // Writing Functions
 void sentence_capitalization() {
-    result = fopen("output.txt", "w");
     fprintf(result, "This is capitalization error..\n\n");
     for(int i=0; i<sentence_counter; i++) {
         char temp = sentence_array[i].real_sentence[0];
@@ -165,11 +175,38 @@ void ending_punctuation() {
 }
 
 void repeated_word_check(){
-
+    fprintf(result, "This is Repeated Word error..\n\n");
+    for(int i=0; i<sentence_counter; i++) {
+        char curr_sentence[1024];
+        strcpy(curr_sentence, sentence_array[i].real_sentence);
+        int sen_length = strlen(curr_sentence);
+        char curr_str[1024], prev_str[1024];
+        int k=0;
+        for(int j=0; j<sen_length; j++) {
+            if(curr_sentence[j] == ' ' || curr_sentence[j] == ',' || curr_sentence[j] == '"' || curr_sentence[j] == '.' || curr_sentence[j] == '?' || curr_sentence[j] == '!' || curr_sentence[j] == '\n') {
+                // end of a word
+                if(strlen(curr_str) >= 1 && strcmp(curr_str, prev_str) == 0) {
+                    // printf("%s\t%s\n", prev_str, curr_str);
+                    fprintf(result, "Repeated words at sentence no. %d\n", sentence_array[i].sentence_number);
+                }
+                if(curr_str != '\0') {
+                    strcpy(prev_str, curr_str);
+                }
+                // erasing the current string
+                for(int p=0; p<=1023; p++) {
+                    curr_str[p] = '\0';
+                }
+                k=0;
+            }
+            else {
+                curr_str[k++] = curr_sentence[j];
+            }
+        }
+    }
+    fprintf(result, "\n\n");
 }
 
 void missing_articles(){
-    result = fopen("output.txt", "w");
     fprintf(result, "This is Artice error..\n\n");
     for(int i=0; i<sentence_counter; i++) {
         char curr_sentence[1024];
@@ -183,9 +220,10 @@ void missing_articles(){
                 // printf("%s\n", curr_str);
                 if(is_noun(curr_str)) {
                     // printf("%s\t%s\t", prev_str, curr_str);
-                    if((strcmp(prev_str, "a") == 0) || (strcmp(prev_str, "an") == 0) || (strcmp(prev_str, "the") == 0)) {
+                    if(!is_article(prev_str)) {
                         //printf("The article error is in the sentence no. %d\n", sentence_array[i].sentence_number);
-                        fprintf(result, "The artice is missing in sentence no. %d\n", sentence_array[i].sentence_number);
+                        printf("%d %s\n",strlen(prev_str), prev_str);
+                        fprintf(result, "The artice is missing in sentence no. %d. before word '%s'. the previous word was '%s'.\n", sentence_array[i].sentence_number, curr_str, prev_str);
                     }
                 }
                 if(curr_str != '\0') {
@@ -202,4 +240,5 @@ void missing_articles(){
             }
         }
     }
+    fprintf(result, "\n\n");
 }

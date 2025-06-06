@@ -1,3 +1,27 @@
+This is Repeated Word error..
+
+
+
 This is Artice error..
 
-The artice is missing in sentence no. 4
+The artice is missing in sentence no. 1. before word 'brown'. the previous word was 'quick'.
+The artice is missing in sentence no. 1. before word 'dog'. the previous word was 'lazy'.
+The artice is missing in sentence no. 2. before word 'it'. the previous word was ''.
+The artice is missing in sentence no. 2. before word 'day'. the previous word was 'sunny'.
+The artice is missing in sentence no. 4. before word 'go'. the previous word was 'to'.
+The artice is missing in sentence no. 5. before word 'lunch'. the previous word was 'his'.
+The artice is missing in sentence no. 5. before word 'two'. the previous word was 'had'.
+The artice is missing in sentence no. 5. before word 'one'. the previous word was 'of'.
+The artice is missing in sentence no. 8. before word 'park'. the previous word was 'The'.
+The artice is missing in sentence no. 8. before word 'people'. the previous word was 'with'.
+The artice is missing in sentence no. 8. before word 'other'. the previous word was 'each'.
+The artice is missing in sentence no. 9. before word 'way'. the previous word was 'their'.
+The artice is missing in sentence no. 14. before word 'thing'. the previous word was 'next'.
+The artice is missing in sentence no. 15. before word 'way'. the previous word was 'their'.
+The artice is missing in sentence no. 15. before word 'back'. the previous word was 'way'.
+The artice is missing in sentence no. 17. before word 'lesson'. the previous word was 'important'.
+The artice is missing in sentence no. 17. before word 'day'. the previous word was 'that'.
+The artice is missing in sentence no. 17. before word 'one'. the previous word was 'was'.
+The artice is missing in sentence no. 17. before word 'home'. the previous word was 'leaving'.
+
+
