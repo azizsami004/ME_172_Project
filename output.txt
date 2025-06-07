@@ -1,13 +1,30 @@
+This is capitalization error..
+
+'t' should be capital letter at sentence no. 1.  The quick brown fox jumps over the lazy dog.
+
+'i' should be capital letter at sentence no. 2.  It was a bright sunny day, and everyone was excited for the picnic.
+
+'t' should be capital letter at sentence no. 3.  The weather was perfect!
+
+'s' should be capital letter at sentence no. 9.  Suddenly, they realized they had lost their way.
+
+'t' should be capital letter at sentence no. 10.  They kept walking, but the streets all looked the same.
+
+'i' should be capital letter at sentence no. 12.  "I think we are lost!" John said.
+
 This is Repeated Word error..
 
+Repeated words at sentence no. 7 and it is 'went'.
+Repeated words at sentence no. 15 and it is 'but'.
+Repeated words at sentence no. 15 and it is 'happy'.
 
 
 This is Artice error..
 
 The artice is missing in sentence no. 1. before word 'brown'. the previous word was 'quick'.
 The artice is missing in sentence no. 1. before word 'dog'. the previous word was 'lazy'.
-The artice is missing in sentence no. 2. before word 'it'. the previous word was ''.
 The artice is missing in sentence no. 2. before word 'day'. the previous word was 'sunny'.
+The artice is missing in sentence no. 3. before word 'weather'. the previous word was 'The'.
 The artice is missing in sentence no. 4. before word 'go'. the previous word was 'to'.
 The artice is missing in sentence no. 5. before word 'lunch'. the previous word was 'his'.
 The artice is missing in sentence no. 5. before word 'two'. the previous word was 'had'.

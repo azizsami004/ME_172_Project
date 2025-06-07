@@ -56,7 +56,7 @@ int main() {
     //     printf("%d -> %s\n", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
     // }
 
-    // sentence_capitalization();
+    sentence_capitalization();
     repeated_word_check();
     missing_articles();
 
@@ -162,11 +162,23 @@ void sentence_capitalization() {
         if(temp >= 97 && temp <= 122) {
             // Error
             sentence_array[i].real_sentence[0] = toupper(sentence_array[i].real_sentence[0]);
-            fprintf(result, "%c should be capital letter at sentence no. %d.  %s\n", temp, sentence_array[i].sentence_number, sentence_array[i].real_sentence);
+            fprintf(result, "'%c' should be capital letter at sentence no. %d.  %s\n", temp, sentence_array[i].sentence_number, sentence_array[i].real_sentence);
         }
         sentence_array[i].real_sentence[0] = toupper(sentence_array[i].real_sentence[0]);
         printf("%d -> %s\n", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
 
+        // for direct sentence
+        int flag = 0;
+        char curr_sen[1024];
+        strcpy(curr_sen, sentence_array[i].real_sentence);
+        for(int j=0; j<strlen(curr_sen)-1; j++) {
+            if(flag == 0 && curr_sen[j] == '"') {
+                if(curr_sen[j+1] >= 97 && curr_sen[j+1] <= 122) {
+                    sentence_array[i].real_sentence[j+1] = toupper(sentence_array[i].real_sentence[j+1]);
+                    fprintf(result, "'%c' should be capital letter at sentence no. %d.  %s\n", curr_sen[j+1], sentence_array[i].sentence_number, sentence_array[i].real_sentence);
+                }
+            }
+        }
     }
 }
 
@@ -187,7 +199,7 @@ void repeated_word_check(){
                 // end of a word
                 if(strlen(curr_str) >= 1 && strcmp(curr_str, prev_str) == 0) {
                     // printf("%s\t%s\n", prev_str, curr_str);
-                    fprintf(result, "Repeated words at sentence no. %d\n", sentence_array[i].sentence_number);
+                    fprintf(result, "Repeated words at sentence no. %d and it is '%s'.\n", sentence_array[i].sentence_number, curr_str);
                 }
                 if(curr_str != '\0') {
                     strcpy(prev_str, curr_str);
