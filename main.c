@@ -20,6 +20,8 @@ struct sentence {
 void sentence_output(FILE *input, FILE *output);
 void sentence_print(char *line, FILE *output);
 int is_noun(char str[]);
+int is_adjective(char str[]);
+int is_adverb(char str[]);
 
 // Features Functions
 void sentence_capitalization();
@@ -31,7 +33,7 @@ void missing_articles();
 int main() {
     // Defining Files
     FILE *input, *sentences;
-    input = fopen("input.txt", "r");
+    input = fopen("simple_input.txt", "r");
     sentences = fopen("simple_output.txt", "w");
     result = fopen("output.txt", "w");
 
@@ -59,8 +61,10 @@ int main() {
     sentence_capitalization();
     repeated_word_check();
     missing_articles();
+    ending_punctuation();
 
     
+
     // Closing files
     fclose(input);
     fclose(sentences);
@@ -146,12 +150,70 @@ int is_noun(char str[]) {
     return 0;
 }
 
+int is_adjective(char str[]) {
+    FILE* adjective;
+    adjective = fopen("adjective.txt", "r");
+    if(adjective == NULL) {
+        printf("Error opening file\n");
+        return 0;
+    }
+    char temp[1024];
+    while(fscanf(adjective, "%s", temp) == 1) {
+        // comparing two words using strcmp() function. if strcmp() returns 0 then both words are same.
+        if(strcmp(temp, str) == 0) { 
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int is_adverb(char str[]) {
+    FILE* adverb;
+    adverb = fopen("adverb.txt", "r");
+    if(adverb == NULL) {
+        printf("Error opening file\n");
+        return 0;
+    }
+    char temp[1024];
+    while(fscanf(adverb, "%s", temp) == 1) {
+        // comparing two words using strcmp() function. if strcmp() returns 0 then both words are same.
+        if(strcmp(temp, str) == 0) { 
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+
 int is_article(char str[]) {
     if(strlen(str) < 1 || strlen(str) > 3) return 0;
     if(str[0] == 'a' && str[1] == 'n') return 1;
     else if(str[0] == 't' && str[1] == 'h' && str[2] == 'e') return 1;
     else if(str[0] == 'a') return 1;
     else return 0;
+}
+
+int is_direct_sentence(int sentence_number) {
+    int flag = 0;
+    int quotation_counter = 0;
+    for(int i=0; i<strlen(sentence_array[sentence_number].real_sentence); i++) {
+        if(sentence_array[sentence_number].real_sentence[i] == '"') {
+            quotation_counter++;
+        }
+    }
+    if(quotation_counter != 0) {
+        return 1;
+    }
+    return 0;
+}
+
+bool is_both_equal_word(char a[], char b[]) {
+    if(strlen(a) != strlen(b)) return 0;
+    for(int i=0; i<strlen(a); i++) {
+        if(tolower(a[i]) != tolower(b[i])) return 0;
+    }
+    return 1;
 }
 
 // Writing Functions
@@ -183,7 +245,177 @@ void sentence_capitalization() {
 }
 
 void ending_punctuation() {
+    fprintf(result, "This is Punctuation error..\n\n");
 
+    char *wh_words[] = {"what", "when", "where", "who", "whom", "which", "whose", "why", "how"};
+    char *auxiliary_verbs[] = {"am", "is", "are", "was", "were", "being", "been", "have", "has", "had", "having", "do", "does", "did", "will", "shall", "can", "could", "may", "might", "must", "would", "should", "ought to", "need", "dare"};
+
+    for(int i=0; i<sentence_counter; i++) {
+        int sentence_lenght = strlen(sentence_array[i].real_sentence);
+        char current_sentence[1024];
+        for(int j=0; j<1024; j++) {
+            current_sentence[j] = '\0';
+        }
+        strcpy(current_sentence, sentence_array[i].real_sentence);
+        // interogative sentence
+        // for indirect sentence
+        if(!is_direct_sentence(i)) {
+            // wh-word + auxiliary verb
+            // checking if 1st word is wh-word
+            char first_word[1024], second_word[1024];
+            char last_char = current_sentence[sentence_lenght-2];
+            for(int j=0; j<1024; j++) {
+                first_word[j] = '\0';
+                second_word[j] = '\0';
+            }
+            int f_i = 0, s_i = 0, blank_cnt = 0;
+            for(int j=0; j<sentence_lenght; j++) {
+                char current_character = sentence_array[i].real_sentence[j];
+                if(blank_cnt == 2) break;
+                else if(blank_cnt == 0) {
+                    if(current_character != ' ') {
+                        first_word[f_i] = current_character;
+                        f_i++;
+                    }
+                    else {
+                        blank_cnt++;
+                    }
+                }
+                else {
+                    if(current_character != ' ') {
+                        second_word[s_i] = current_character;
+                        s_i++;
+                    }
+                    else {
+                        blank_cnt++;
+                    }
+                }
+            }
+            int is_first_word_wh = 0, is_second_word_aux_v = 0;
+            for(int j=0; j<9; j++) {
+                if(is_both_equal_word(wh_words[j], first_word)) {
+                    is_first_word_wh = 1;
+                }
+            }
+            for(int j=0; j<26; j++) {
+                if(is_both_equal_word(auxiliary_verbs[j], second_word)) {
+                    is_second_word_aux_v = 1;
+                }
+            }
+            // checking if interrogative sentence
+            if(is_first_word_wh && is_second_word_aux_v) {
+                // printf("%s\t%s\t%c\n", first_word, second_word, last_char);
+                if(last_char != '?') {
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '?'.\n", sentence_array[i].sentence_number);
+                }
+            }
+            // printf("%s\t%d\t%s\t%d %c\n", first_word, strlen(first_word), second_word, strlen(second_word), last_char);
+
+
+
+            // for exclamatory sentence
+            // wh-word + "a"/"an"
+            else if(is_first_word_wh && (strcmp(second_word, "a") == 0 || strcmp(second_word, "an") == 0)) {
+                if(last_char != '!') {
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\n", sentence_array[i].sentence_number);
+                }
+            }
+            // wh-word + adjective/adverb
+            else if(is_first_word_wh && (is_adjective(second_word) || is_adverb(second_word))) {
+                if(last_char != '!') {
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\n", sentence_array[i].sentence_number);
+                }
+            }
+            else {
+                if(last_char != '.') {
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '.'.\n", sentence_array[i].sentence_number);
+                }
+            }
+
+        }
+        else {
+            // for direct sentence. 
+            char first_word[1024], second_word[1024];
+            char sentence_inside_quotation[1024];
+            for(int j=0; j<1024; j++) {
+                first_word[j] = '\0';
+                second_word[j] = '\0';
+                sentence_inside_quotation[j] = '\0';
+            }
+            int is_opening_quotation_encountered = 0, c_i = 0;
+            for(int j=0; j<sentence_lenght; j++) {
+                if(is_opening_quotation_encountered && current_sentence[j] == '"') break;
+                if(is_opening_quotation_encountered && current_sentence[j] != '"') sentence_inside_quotation[c_i++] = current_sentence[j];
+                if(!is_opening_quotation_encountered && current_sentence[j] == '"') is_opening_quotation_encountered = 1;
+            }
+            // printf("%s\n", sentence_inside_quotation);
+            int f_i = 0, s_i = 0, blank_cnt = 0;
+            int inside_quote_sentence_lenght = strlen(sentence_inside_quotation);
+            char last_char = sentence_inside_quotation[inside_quote_sentence_lenght - 1];
+            for(int j=0; j<inside_quote_sentence_lenght; j++) {
+                char current_character = sentence_inside_quotation[j];
+                if(blank_cnt == 2) break;
+                else if(blank_cnt == 0) {
+                    if(current_character != ' ') {
+                        first_word[f_i] = current_character;
+                        f_i++;
+                    }
+                    else {
+                        blank_cnt++;
+                    }
+                }
+                else {
+                    if(current_character != ' ') {
+                        second_word[s_i] = current_character;
+                        s_i++;
+                    }
+                    else {
+                        blank_cnt++;
+                    }
+                }
+            }
+            int is_first_word_wh = 0, is_second_word_aux_v = 0;
+            for(int j=0; j<9; j++) {
+                if(is_both_equal_word(wh_words[j], first_word)) {
+                    is_first_word_wh = 1;
+                }
+            }
+            for(int j=0; j<26; j++) {
+                if(is_both_equal_word(auxiliary_verbs[j], second_word)) {
+                    is_second_word_aux_v = 1;
+                }
+            }
+            // checking if interrogative sentence
+            if(is_first_word_wh && is_second_word_aux_v) {
+                // printf("%s\t%s\t%c\n", first_word, second_word, last_char);
+                if(last_char != '?') {
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '?'.\n", sentence_array[i].sentence_number);
+                }
+            }
+            // printf("%s\t%d\t%s\t%d %c\n", first_word, strlen(first_word), second_word, strlen(second_word), last_char);
+
+
+
+            // for exclamatory sentence
+            // wh-word + "a"/"an"
+            else if(is_first_word_wh && (strcmp(second_word, "a") == 0 || strcmp(second_word, "an") == 0)) {
+                if(last_char != '!') {
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\n", sentence_array[i].sentence_number);
+                }
+            }
+            // wh-word + adjective/adverb
+            else if(is_first_word_wh && (is_adjective(second_word) || is_adverb(second_word))) {
+                if(last_char != '!') {
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\n", sentence_array[i].sentence_number);
+                }
+            }
+            else {
+                if(last_char != '.') {
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '.'.\n", sentence_array[i].sentence_number);
+                }
+            }
+        }
+    }
 }
 
 void repeated_word_check(){
