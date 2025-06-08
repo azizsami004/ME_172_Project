@@ -467,7 +467,7 @@ void missing_articles(){
                     if(!is_article(prev_str)) {
                         //printf("The article error is in the sentence no. %d\n", sentence_array[i].sentence_number);
                         printf("%d %s\n",strlen(prev_str), prev_str);
-                        fprintf(result, "The artice is missing in sentence no. %d. before word '%s'. the previous word was '%s'.\n", sentence_array[i].sentence_number, curr_str, prev_str);
+                        fprintf(result, "The artice is missing in sentence no. %d..\n", sentence_array[i].sentence_number);
                     }
                 }
                 if(curr_str != '\0') {
