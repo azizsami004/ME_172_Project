@@ -33,8 +33,8 @@ void missing_articles();
 int main() {
     // Defining Files
     FILE *input, *sentences;
-    input = fopen("simple_input.txt", "r");
-    sentences = fopen("simple_output.txt", "w");
+    input = fopen("input.txt", "r");
+    sentences = fopen("sentences.txt", "w");
     result = fopen("output.txt", "w");
 
     // Creating a text file where every line has only one sentence. So that we can work easily with sentences
@@ -44,7 +44,7 @@ int main() {
 
     // Taking input from the sentence file and creating an array of sentence structure
     FILE *ss;
-    ss = fopen("simple_output.txt", "r");
+    ss = fopen("sentences.txt", "r");
 
     char temp[1024];
     int cnt = 0;
@@ -53,10 +53,6 @@ int main() {
         strcpy(sentence_array[cnt].real_sentence, temp);
         cnt++;
     }
-
-    // for(int i=0; i<sentence_counter; i++) {
-    //     printf("%d -> %s\n", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
-    // }
 
     sentence_capitalization();
     repeated_word_check();
@@ -78,9 +74,11 @@ void sentence_print(char *line, FILE *output) {
 
     for(int i=0; i<len; i++) {
         // checking for direct sentence
+        // to handle -> "I was bad.", he said.
         if((line[i] == '.' || line[i] == '?' || line[i] == '!') && line[i+1] == '"') continue;
         if(line[i] == ',' && line[i+1] == ' ' && line[i+2] == '"') {
             for(int j=i; j<len; j++) {
+                // to handle -> He said, "I was bad."
                 if((line[j] == '.' || line[j] == '?' || line[j] == '!') && line[j+1] == '"') {
                     // Add punctuation at this index
                     int end = j+1;
