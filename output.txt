@@ -1,22 +1,19 @@
 This is capitalization error..
 
-'i' should be capital letter at sentence no. 2.  "I think we are lost!" John said.
+'t' should be capital letter at sentence no. 1.  This is the the example text it has some grammar mistakes.
+
+'t' should be capital letter at sentence no. 2.  The sun is hot.
 
 This is Repeated Word error..
 
-Repeated words at sentence no. 5 and it is 'repeat'.
+Repeated words at sentence no. 1 and it is 'the'.
 
 
-This is Artice error..
+This is Article error..
 
-The artice is missing in sentence no. 3. before word 'adult'. the previous word was 'is'.
-The artice is missing in sentence no. 5. before word 'repeat'. the previous word was 'for'.
-The artice is missing in sentence no. 5. before word 'repeat'. the previous word was 'repeat'.
-The artice is missing in sentence no. 5. before word 'check'. the previous word was 'repeat'.
+The artice is missing in sentence no. 1..
+The artice is missing in sentence no. 1..
 
 
 This is Punctuation error..
 
-Punctualtion error at sentence no. '2'. Correct puntuation will be '.'.
-Punctualtion error at sentence no. '7'. Correct puntuation will be '?'.
-Punctualtion error at sentence no. '8'. Correct puntuation will be '!'.

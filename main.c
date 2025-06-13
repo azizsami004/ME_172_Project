@@ -63,14 +63,11 @@ int main() {
     missing_articles();
     ending_punctuation();
 
-    
-
     // Closing files
     fclose(input);
     fclose(sentences);
     fclose(ss);
     fclose(result);
-
 
     return 0;
 }
@@ -82,6 +79,33 @@ void sentence_print(char *line, FILE *output) {
     for(int i=0; i<len; i++) {
         // checking for direct sentence
         if((line[i] == '.' || line[i] == '?' || line[i] == '!') && line[i+1] == '"') continue;
+        if(line[i] == ',' && line[i+1] == ' ' && line[i+2] == '"') {
+            for(int j=i; j<len; j++) {
+                if((line[j] == '.' || line[j] == '?' || line[j] == '!') && line[j+1] == '"') {
+                    // Add punctuation at this index
+                    int end = j+1;
+                    char sentence[2048];
+                    // Length of sentence
+                    int sen_len = end - start + 1;
+                    // strncpy() assigns a sentence of sen_len length to sentence[1024] array
+                    strncpy(sentence, line + start, sen_len);
+                    // at last index of the sentence a null character is added so that end of sentence can be indentified
+                    sentence[sen_len] = '\0';
+                    // counting sentence
+                    sentence_counter++;
+                    // writing sentence in desired file
+                    fprintf(output, "%s\n", sentence);
+
+                    // as we done with a sentence. now start of a new sentence will begin from the next character. using loop we are omitting spaces, new lines and tabs
+                    start = end + 1;
+                    while(start < len && (line[start] == ' ' || line[start] == '\n' || line[start] == '\t')) {
+                        start++;
+                    }
+                    // new value of i will be start of new sentence
+                    i = start - 1;
+                }
+            }
+        }
         // Checking end of line
         if(line[i] == '.' || line[i] == '?' || line[i] == '!') {
             // Add punctuation at this index
@@ -185,12 +209,11 @@ int is_adverb(char str[]) {
 }
 
 
-
 int is_article(char str[]) {
     if(strlen(str) < 1 || strlen(str) > 3) return 0;
-    if(str[0] == 'a' && str[1] == 'n') return 1;
-    else if(str[0] == 't' && str[1] == 'h' && str[2] == 'e') return 1;
-    else if(str[0] == 'a') return 1;
+    if(strlen(str) == 2 && tolower(str[0]) == 'a' && tolower(str[1]) == 'n') return 1;
+    else if(strlen(str) == 3 && tolower(str[0]) == 't' && tolower(str[1]) == 'h' && tolower(str[2]) == 'e') return 1;
+    else if(strlen(str) == 1 && tolower(str[0]) == 'a') return 1;
     else return 0;
 }
 
@@ -208,7 +231,7 @@ int is_direct_sentence(int sentence_number) {
     return 0;
 }
 
-bool is_both_equal_word(char a[], char b[]) {
+int is_both_equal_word(char a[], char b[]) {
     if(strlen(a) != strlen(b)) return 0;
     for(int i=0; i<strlen(a); i++) {
         if(tolower(a[i]) != tolower(b[i])) return 0;
@@ -263,7 +286,7 @@ void ending_punctuation() {
             // wh-word + auxiliary verb
             // checking if 1st word is wh-word
             char first_word[1024], second_word[1024];
-            char last_char = current_sentence[sentence_lenght-2];
+            char last_char = current_sentence[sentence_lenght-2];  // /0
             for(int j=0; j<1024; j++) {
                 first_word[j] = '\0';
                 second_word[j] = '\0';
@@ -293,12 +316,12 @@ void ending_punctuation() {
             }
             int is_first_word_wh = 0, is_second_word_aux_v = 0;
             for(int j=0; j<9; j++) {
-                if(is_both_equal_word(wh_words[j], first_word)) {
+                if(is_both_equal_word(wh_words[j], first_word) == 1) {
                     is_first_word_wh = 1;
                 }
             }
             for(int j=0; j<26; j++) {
-                if(is_both_equal_word(auxiliary_verbs[j], second_word)) {
+                if(is_both_equal_word(auxiliary_verbs[j], second_word) == 1) {
                     is_second_word_aux_v = 1;
                 }
             }
@@ -311,10 +334,9 @@ void ending_punctuation() {
             }
             // printf("%s\t%d\t%s\t%d %c\n", first_word, strlen(first_word), second_word, strlen(second_word), last_char);
 
-
-
             // for exclamatory sentence
             // wh-word + "a"/"an"
+            // 1 && 1 == 1
             else if(is_first_word_wh && (strcmp(second_word, "a") == 0 || strcmp(second_word, "an") == 0)) {
                 if(last_char != '!') {
                     fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\n", sentence_array[i].sentence_number);
@@ -348,7 +370,7 @@ void ending_punctuation() {
                 if(is_opening_quotation_encountered && current_sentence[j] != '"') sentence_inside_quotation[c_i++] = current_sentence[j];
                 if(!is_opening_quotation_encountered && current_sentence[j] == '"') is_opening_quotation_encountered = 1;
             }
-            // printf("%s\n", sentence_inside_quotation);
+            // printf("%s\n", sentence_inside_quotation;
             int f_i = 0, s_i = 0, blank_cnt = 0;
             int inside_quote_sentence_lenght = strlen(sentence_inside_quotation);
             char last_char = sentence_inside_quotation[inside_quote_sentence_lenght - 1];
@@ -450,8 +472,9 @@ void repeated_word_check(){
     fprintf(result, "\n\n");
 }
 
+// noun + article
 void missing_articles(){
-    fprintf(result, "This is Artice error..\n\n");
+    fprintf(result, "This is Article error..\n\n");
     for(int i=0; i<sentence_counter; i++) {
         char curr_sentence[1024];
         strcpy(curr_sentence, sentence_array[i].real_sentence);
@@ -466,7 +489,7 @@ void missing_articles(){
                     // printf("%s\t%s\t", prev_str, curr_str);
                     if(!is_article(prev_str)) {
                         //printf("The article error is in the sentence no. %d\n", sentence_array[i].sentence_number);
-                        printf("%d %s\n",strlen(prev_str), prev_str);
+                        //printf("%d %s\n",strlen(prev_str), prev_str);
                         fprintf(result, "The artice is missing in sentence no. %d..\n", sentence_array[i].sentence_number);
                     }
                 }
