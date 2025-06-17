@@ -1,19 +1,48 @@
 This is capitalization error..
 
-'t' should be capital letter at sentence no. 1.  This is the the example text it has some grammar mistakes.
+'t' should be capital letter at sentence no. 1.  The quick brown fox jumps over the lazy dog.
 
-'t' should be capital letter at sentence no. 2.  The sun is hot.
+'i' should be capital letter at sentence no. 2.  It was a bright sunny day, and everyone was excited for the picnic.
+
+'t' should be capital letter at sentence no. 3.  The weather was perfect!
+
+'s' should be capital letter at sentence no. 9.  Suddenly, they realized they had lost their way.
+
+'t' should be capital letter at sentence no. 10.  They kept walking, but the streets all looked the same.
+
+'i' should be capital letter at sentence no. 12.  "I think we are lost!" John said.
 
 This is Repeated Word error..
 
-Repeated words at sentence no. 1 and it is 'the'.
+Repeated words at sentence no. 7 and it is 'went'.
+Repeated words at sentence no. 15 and it is 'but'.
+Repeated words at sentence no. 15 and it is 'happy'.
 
 
 This is Article error..
 
 The artice is missing in sentence no. 1..
 The artice is missing in sentence no. 1..
+The artice is missing in sentence no. 2..
+The artice is missing in sentence no. 2..
+The artice is missing in sentence no. 4..
+The artice is missing in sentence no. 5..
+The artice is missing in sentence no. 5..
+The artice is missing in sentence no. 5..
+The artice is missing in sentence no. 8..
+The artice is missing in sentence no. 8..
+The artice is missing in sentence no. 9..
+The artice is missing in sentence no. 14..
+The artice is missing in sentence no. 15..
+The artice is missing in sentence no. 15..
+The artice is missing in sentence no. 17..
+The artice is missing in sentence no. 17..
+The artice is missing in sentence no. 17..
+The artice is missing in sentence no. 17..
+The artice is missing in sentence no. 17..
 
 
 This is Punctuation error..
 
+Punctualtion error at sentence no. '3'. Correct puntuation will be '.'.
+Punctualtion error at sentence no. '12'. Correct puntuation will be '.'.

@@ -17,6 +17,7 @@ struct sentence {
 
 // Prototyping Functions
 // Helper functions
+int is_both_equal_word(char a[], char b[]);
 void sentence_output(FILE *input, FILE *output);
 void sentence_print(char *line, FILE *output);
 int is_noun(char str[]);
@@ -66,6 +67,14 @@ int main() {
     fclose(result);
 
     return 0;
+}
+
+int is_both_equal_word(char a[], char b[]) {
+    if(strlen(a) != strlen(b)) return 0;
+    for(int i=0; i<strlen(a); i++) {
+        if(tolower(a[i]) != tolower(b[i])) return 0;
+    }
+    return 1;
 }
 
 void sentence_print(char *line, FILE *output) {
@@ -164,8 +173,8 @@ int is_noun(char str[]) {
     }
     char temp[1024];
     while(fscanf(nouns, "%s", temp) == 1) {
-        // comparing two words using strcmp() function. if strcmp() returns 0 then both words are same.
-        if(strcmp(temp, str) == 0) { 
+        // comparing two words
+        if(is_both_equal_word(temp, str)) { 
             return 1;
         }
     }
@@ -181,8 +190,8 @@ int is_adjective(char str[]) {
     }
     char temp[1024];
     while(fscanf(adjective, "%s", temp) == 1) {
-        // comparing two words using strcmp() function. if strcmp() returns 0 then both words are same.
-        if(strcmp(temp, str) == 0) { 
+        // comparing two words
+        if(is_both_equal_word(temp, str)) { 
             return 1;
         }
     }
@@ -198,8 +207,8 @@ int is_adverb(char str[]) {
     }
     char temp[1024];
     while(fscanf(adverb, "%s", temp) == 1) {
-        // comparing two words using strcmp() function. if strcmp() returns 0 then both words are same.
-        if(strcmp(temp, str) == 0) { 
+        // comparing two words using
+        if(is_both_equal_word(temp, str)) { 
             return 1;
         }
     }
@@ -229,13 +238,6 @@ int is_direct_sentence(int sentence_number) {
     return 0;
 }
 
-int is_both_equal_word(char a[], char b[]) {
-    if(strlen(a) != strlen(b)) return 0;
-    for(int i=0; i<strlen(a); i++) {
-        if(tolower(a[i]) != tolower(b[i])) return 0;
-    }
-    return 1;
-}
 
 // Writing Functions
 void sentence_capitalization() {
@@ -335,7 +337,7 @@ void ending_punctuation() {
             // for exclamatory sentence
             // wh-word + "a"/"an"
             // 1 && 1 == 1
-            else if(is_first_word_wh && (strcmp(second_word, "a") == 0 || strcmp(second_word, "an") == 0)) {
+            else if(is_first_word_wh && (is_both_equal_word(second_word, "a") || is_both_equal_word(second_word, "an"))) {
                 if(last_char != '!') {
                     fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\n", sentence_array[i].sentence_number);
                 }
@@ -418,7 +420,7 @@ void ending_punctuation() {
 
             // for exclamatory sentence
             // wh-word + "a"/"an"
-            else if(is_first_word_wh && (strcmp(second_word, "a") == 0 || strcmp(second_word, "an") == 0)) {
+            else if(is_first_word_wh && (is_both_equal_word(second_word, "a") || is_both_equal_word(second_word, "an"))) {
                 if(last_char != '!') {
                     fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\n", sentence_array[i].sentence_number);
                 }
@@ -449,7 +451,7 @@ void repeated_word_check(){
         for(int j=0; j<sen_length; j++) {
             if(curr_sentence[j] == ' ' || curr_sentence[j] == ',' || curr_sentence[j] == '"' || curr_sentence[j] == '.' || curr_sentence[j] == '?' || curr_sentence[j] == '!' || curr_sentence[j] == '\n') {
                 // end of a word
-                if(strlen(curr_str) >= 1 && strcmp(curr_str, prev_str) == 0) {
+                if(strlen(curr_str) >= 1 && is_both_equal_word(curr_str, prev_str)) {
                     // printf("%s\t%s\n", prev_str, curr_str);
                     fprintf(result, "Repeated words at sentence no. %d and it is '%s'.\n", sentence_array[i].sentence_number, curr_str);
                 }
