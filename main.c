@@ -15,11 +15,19 @@ struct sentence {
     char real_sentence[1024];
 } sentence_array[1000+1];
 
+struct Sentence_with_Word {
+    int sentence_number;
+    int words_in_sentence;
+    char words[1024][100];
+} sentence_with_word_array[1001];
+
+
 // Prototyping Functions
 // Helper functions
 int is_both_equal_word(char a[], char b[]);
 void sentence_output(FILE *input, FILE *output);
 void sentence_print(char *line, FILE *output);
+void create_array_of_sentence_with_word();
 int is_noun(char str[]);
 int is_adjective(char str[]);
 int is_adverb(char str[]);
@@ -54,7 +62,7 @@ int main() {
         strcpy(sentence_array[cnt].real_sentence, temp);
         cnt++;
     }
-
+    create_array_of_sentence_with_word();
     sentence_capitalization();
     repeated_word_check();
     missing_articles();
@@ -85,9 +93,8 @@ void sentence_print(char *line, FILE *output) {
         // checking for direct sentence
         // to handle -> "I was bad.", he said.
         if((line[i] == '.' || line[i] == '?' || line[i] == '!') && line[i+1] == '"') continue;
-        if(line[i] == ',' && line[i+1] == ' ' && line[i+2] == '"') {
+        if(line[i] == ',' && line[i+1] == ' ' && line[i+2] == '"') {    // to handle -> He said, "I was bad."
             for(int j=i; j<len; j++) {
-                // to handle -> He said, "I was bad."
                 if((line[j] == '.' || line[j] == '?' || line[j] == '!') && line[j+1] == '"') {
                     // Add punctuation at this index
                     int end = j+1;
@@ -162,6 +169,50 @@ void sentence_output(FILE *input, FILE *output) {
     while(fgets(line, sizeof(line), input) != NULL) {
         sentence_print(line, output);
     }
+}
+
+
+void create_array_of_sentence_with_word() {
+    for(int i=0; i<sentence_counter; i++) {
+        char current_sentence[1024];
+        strcpy(current_sentence, sentence_array[i].real_sentence);
+        int current_sentence_length = strlen(sentence_array[i].real_sentence);
+
+        char current_word[200];
+        int k = 0, word_count = 0;
+
+        for(int j=0; j<current_sentence_length; j++) {
+            if(current_sentence[j] == ' ') {
+                if(strlen(current_word) == 0) {
+                    continue;
+                }
+                else {
+                    printf("%s\n", current_word);
+                    strcpy(sentence_with_word_array[i].words[word_count++], current_word);
+                    memset(current_word, 0, sizeof(current_word));
+                    k = 0;
+                }
+            }
+            else {
+                if(current_sentence[j] == '"' || current_sentence[j] == '\'' || current_sentence[j] == ',' || current_sentence[j] == '.' || current_sentence[j] == '?' || current_sentence[j] == '!') {
+                    printf("%s\n", current_word);       // considering end of word
+                    memset(current_word, 0, sizeof(current_word));
+                    k = 0;
+
+                    current_word[k++] = current_sentence[j];       // treating start of new word
+                    printf("%s\n", current_word);
+                    strcpy(sentence_with_word_array[i].words[word_count++], current_word);
+                    memset(current_word, 0, sizeof(current_word));
+                    k = 0;
+                    j++;
+                }
+                current_word[k++] = current_sentence[j];
+            }
+        }
+        sentence_with_word_array[i].sentence_number = i;
+        sentence_with_word_array[i].words_in_sentence = word_count;
+    }
+
 }
 
 int is_noun(char str[]) {
@@ -438,6 +489,7 @@ void ending_punctuation() {
             }
         }
     }
+    fprintf(result, "\n\n");
 }
 
 void repeated_word_check(){
