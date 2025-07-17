@@ -1,20 +1,14 @@
 This is capitalization error..
 
 't' should be capital letter at sentence no. 1.  The quick brown fox jumps over the lazy dog.
-
 'i' should be capital letter at sentence no. 2.  It was a bright sunny day, and everyone was excited for the picnic.
-
 't' should be capital letter at sentence no. 3.  The weather was perfect!
-
 's' should be capital letter at sentence no. 9.  Suddenly, they realized they had lost their way.
-
 't' should be capital letter at sentence no. 10.  They kept walking, but the streets all looked the same.
-
 'i' should be capital letter at sentence no. 12.  "I think we are lost!" John said.
-
 'w' should be capital letter at sentence no. 26.  We went to to market!
-
 'd' should be capital letter at sentence no. 31.  Do you know where the the school is.
+
 
 This is Repeated Word error..
 
@@ -70,6 +64,14 @@ The artice is missing in sentence no. 33..
 The artice is missing in sentence no. 33..
 The artice is missing in sentence no. 34..
 The artice is missing in sentence no. 34..
+The artice is missing in sentence no. 36..
+The artice is missing in sentence no. 37..
+The artice is missing in sentence no. 42..
+The artice is missing in sentence no. 43..
+The artice is missing in sentence no. 44..
+The artice is missing in sentence no. 45..
+The artice is missing in sentence no. 45..
+The artice is missing in sentence no. 47..
 
 
 This is Punctuation error..
@@ -87,5 +89,56 @@ Punctualtion error at sentence no. '29'. Correct puntuation will be '?'.
 Punctualtion error at sentence no. '30'. Correct puntuation will be '.'.
 Punctualtion error at sentence no. '32'. Correct puntuation will be '.'.
 Punctualtion error at sentence no. '34'. Correct puntuation will be '.'.
+
+
+Detecting Tense..
+
+Sorry unable to detect the tense of sentence no: 1.
+Sorry unable to detect the tense of sentence no: 2.
+Sorry unable to detect the tense of sentence no: 3.
+Sorry unable to detect the tense of sentence no: 4.
+Sorry unable to detect the tense of sentence no: 5.
+Sentence no : 6 is past indifinite tense
+Sorry unable to detect the tense of sentence no: 7.
+Sentence no : 8 is present indifinite tense
+Sorry unable to detect the tense of sentence no: 9.
+Sentence no : 10 is past indifinite tense
+Sorry unable to detect the tense of sentence no: 11.
+Sentence no : 12 is present indifinite tense
+Sorry unable to detect the tense of sentence no: 13.
+Sorry unable to detect the tense of sentence no: 14.
+Sorry unable to detect the tense of sentence no: 15.
+Sorry unable to detect the tense of sentence no: 16.
+Sentence no : 17 is past perfect tense
+Sorry unable to detect the tense of sentence no: 18.
+Sorry unable to detect the tense of sentence no: 19.
+Sorry unable to detect the tense of sentence no: 20.
+Sorry unable to detect the tense of sentence no: 21.
+Sorry unable to detect the tense of sentence no: 22.
+Sorry unable to detect the tense of sentence no: 23.
+Sorry unable to detect the tense of sentence no: 24.
+Sentence no : 25 is present indifinite tense
+Sentence no : 26 is past indifinite tense
+Sorry unable to detect the tense of sentence no: 27.
+Sentence no : 28 is present indifinite tense
+Sorry unable to detect the tense of sentence no: 29.
+Sorry unable to detect the tense of sentence no: 30.
+Sorry unable to detect the tense of sentence no: 31.
+Sentence no : 32 is past indifinite tense
+Sorry unable to detect the tense of sentence no: 33.
+Sentence no : 34 is present indifinite tense
+Sentence no : 35 is past indifinite tense
+Sentence no : 36 is past continuous tense
+Sentence no : 37 is past perfect tense
+Sentence no : 38 is past perfect coontinuous tense
+Sentence no : 39 is present continuous tense
+Sentence no : 40 is present perfect tense
+Sentence no : 41 is present perfect coontinuous tense
+Sentence no : 42 is future indifinite tense
+Sentence no : 43 is future continuous tense
+Sentence no : 44 is future perfect tense
+Sentence no : 45 is future perfect coontinuous tense
+Sentence no : 46 is present indifinite tense
+Sentence no : 47 is future perfect tense
 
 
