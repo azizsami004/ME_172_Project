@@ -72,6 +72,12 @@ The artice is missing in sentence no. 44..
 The artice is missing in sentence no. 45..
 The artice is missing in sentence no. 45..
 The artice is missing in sentence no. 47..
+The artice is missing in sentence no. 50..
+The artice is missing in sentence no. 51..
+The artice is missing in sentence no. 52..
+The artice is missing in sentence no. 53..
+The artice is missing in sentence no. 53..
+The artice is missing in sentence no. 56..
 
 
 This is Punctuation error..
@@ -93,39 +99,39 @@ Punctualtion error at sentence no. '34'. Correct puntuation will be '.'.
 
 Detecting Tense..
 
-Sorry unable to detect the tense of sentence no: 1.
-Sorry unable to detect the tense of sentence no: 2.
+Sentence no : 1 is present indifinite tense
+Sentence no : 2 is past indifinite tense
 Sorry unable to detect the tense of sentence no: 3.
-Sorry unable to detect the tense of sentence no: 4.
+Sentence no : 4 is present indifinite tense
 Sorry unable to detect the tense of sentence no: 5.
 Sentence no : 6 is past indifinite tense
-Sorry unable to detect the tense of sentence no: 7.
+Sentence no : 7 is present indifinite tense
 Sentence no : 8 is present indifinite tense
-Sorry unable to detect the tense of sentence no: 9.
+Sentence no : 9 is past perfect tense
 Sentence no : 10 is past indifinite tense
 Sorry unable to detect the tense of sentence no: 11.
 Sentence no : 12 is present indifinite tense
-Sorry unable to detect the tense of sentence no: 13.
-Sorry unable to detect the tense of sentence no: 14.
-Sorry unable to detect the tense of sentence no: 15.
+Sentence no : 13 is present indifinite tense
+Sentence no : 14 is present indifinite tense
+Sentence no : 15 is past indifinite tense
 Sorry unable to detect the tense of sentence no: 16.
 Sentence no : 17 is past perfect tense
-Sorry unable to detect the tense of sentence no: 18.
+Sentence no : 18 is present continuous tense
 Sorry unable to detect the tense of sentence no: 19.
 Sorry unable to detect the tense of sentence no: 20.
-Sorry unable to detect the tense of sentence no: 21.
+Sentence no : 21 is present indifinite tense
 Sorry unable to detect the tense of sentence no: 22.
 Sorry unable to detect the tense of sentence no: 23.
 Sorry unable to detect the tense of sentence no: 24.
-Sentence no : 25 is present indifinite tense
+Sentence no : 25 is past indifinite tense
 Sentence no : 26 is past indifinite tense
-Sorry unable to detect the tense of sentence no: 27.
-Sentence no : 28 is present indifinite tense
+Sentence no : 27 is past indifinite tense
+Sentence no : 28 is past indifinite tense
 Sorry unable to detect the tense of sentence no: 29.
 Sorry unable to detect the tense of sentence no: 30.
-Sorry unable to detect the tense of sentence no: 31.
+Sentence no : 31 is present indifinite tense
 Sentence no : 32 is past indifinite tense
-Sorry unable to detect the tense of sentence no: 33.
+Sentence no : 33 is past indifinite tense
 Sentence no : 34 is present indifinite tense
 Sentence no : 35 is past indifinite tense
 Sentence no : 36 is past continuous tense
@@ -140,5 +146,72 @@ Sentence no : 44 is future perfect tense
 Sentence no : 45 is future perfect coontinuous tense
 Sentence no : 46 is present indifinite tense
 Sentence no : 47 is future perfect tense
+Sorry unable to detect the tense of sentence no: 48.
+Sorry unable to detect the tense of sentence no: 49.
+Sentence no : 50 is present indifinite tense
+Sentence no : 51 is present continuous tense
+Sentence no : 52 is past continuous tense
+Sentence no : 53 is future continuous tense
+Sorry unable to detect the tense of sentence no: 54.
+Sentence no : 55 is present indifinite tense
+Sorry unable to detect the tense of sentence no: 56.
+
+
+Sentence no: 1 is an active voice
+Sentence no: 2 is an active voice
+Sentence no: 3 is an active voice
+Sentence no: 4 is an active voice
+Sentence no: 5 is an active voice
+Sentence no: 6 is an active voice
+Sentence no: 7 is an active voice
+Sentence no: 8 is an active voice
+Sentence no: 9 is an active voice
+Sentence no: 10 is an active voice
+Sentence no: 11 is an active voice
+Sentence no: 12 is an active voice
+Sentence no: 13 is an active voice
+Sentence no: 14 is an active voice
+Sentence no: 15 is an active voice
+Sentence no: 16 is an active voice
+Sentence no: 17 is an active voice
+Sentence no: 18 is an active voice
+Sentence no: 19 is an active voice
+Sentence no: 20 is an active voice
+Sentence no: 21 is an active voice
+Sentence no: 22 is an active voice
+Sentence no: 23 is an active voice
+Sentence no: 24 is an active voice
+Sentence no: 25 is an active voice
+Sentence no: 26 is an active voice
+Sentence no: 27 is an active voice
+Sentence no: 28 is an active voice
+Sentence no: 29 is an active voice
+Sentence no: 30 is an active voice
+Sentence no: 31 is an active voice
+Sentence no: 32 is an active voice
+Sentence no: 33 is an active voice
+Sentence no: 34 is an active voice
+Sentence no: 35 is an active voice
+Sentence no: 36 is an active voice
+Sentence no: 37 is an active voice
+Sentence no: 38 is an active voice
+Sentence no: 39 is an active voice
+Sentence no: 40 is an active voice
+Sentence no: 41 is an active voice
+Sentence no: 42 is an active voice
+Sentence no: 43 is an active voice
+Sentence no: 44 is an active voice
+Sentence no: 45 is an active voice
+Sentence no: 46 is an active voice
+Sentence no: 47 is an active voice
+Sentence no: 48 is a passive voice
+Sentence no: 49 is a passive voice
+Sentence no: 50 is a passive voice
+Sentence no: 51 is a passive voice
+Sentence no: 52 is a passive voice
+Sentence no: 53 is a passive voice
+Sentence no: 54 is a passive voice
+Sentence no: 55 is a passive voice
+Sentence no: 56 is a passive voice
 
 

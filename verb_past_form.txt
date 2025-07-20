@@ -893,3 +893,5 @@ yearned
 yielded  
 zipped  
 zoomed
+was
+were

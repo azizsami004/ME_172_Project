@@ -47,6 +47,8 @@ int is_future_indifinite(int index);
 int is_future_continuous(int index);
 int is_future_perfect(int index);
 int is_future_perfect_continuous(int index);
+void detect_tense();
+void detect_voice();
 
 
 
@@ -91,49 +93,10 @@ int main() {
     //     }
     // }
 
-    for(int i=0; i<sentence_counter; i++) {
-        
-        if(is_present_continuous(i)) {
-            printf("Sentence no : %d is present continuous tense\n", i + 1);
-        }
-        else if(is_present_perfect_continuous(i)) {
-            printf("Sentence no : %d is present perfect coontinuous tense\n", i + 1);
-        }
-        else if(is_present_perfect(i)) {
-            printf("Sentence no : %d is present perfect tense\n", i + 1);
-        }
-        else if(is_present_indifinite(i)) {
-            printf("Sentence no : %d is present indifinite tense\n", i + 1);
-        }
-        else if(is_past_continuous(i)) {
-            printf("Sentence no : %d is past continuous tense\n", i + 1);
-        }
-        else if(is_past_perfect_continuous(i)) {
-            printf("Sentence no : %d is past perfect coontinuous tense\n", i + 1);
-        }
-        else if(is_past_perfect(i)) {
-            printf("Sentence no : %d is past perfect tense\n", i + 1);
-        }
-        else if(is_past_indifinite(i)) {
-            printf("Sentence no : %d is past indifinite tense\n", i + 1);
-        }
-        else if(is_future_continuous(i)) {
-            printf("Sentence no : %d is future continuous tense\n", i + 1);
-        }
-        else if(is_future_perfect_continuous(i)) {
-            printf("Sentence no : %d is future perfect coontinuous tense\n", i + 1);
-        }
-        else if(is_future_perfect(i)) {
-            printf("Sentence no : %d is future perfect tense\n", i + 1);
-        }
-        else if(is_future_indifinite(i)) {
-            printf("Sentence no : %d is future indifinite tense\n", i + 1);
-        }
-        else {
-            printf("Sorry unable to detect the tense of sentence no: %d.\n", i + 1);
-        }
-        
-    }
+    
+    detect_tense();
+
+    detect_voice();
     
 
     // Closing files
@@ -444,30 +407,35 @@ int is_past_participle(char str[]) {
     return 0;
 }
 
+// detecting tense
 
 int is_present_indifinite(int index) {
     int verb_index = 1;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
-        
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {   
+
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     verb_index = quotation_index + 2;
+    // }
+
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+        verb_index = i;
+        char verb[1023];
+        strcpy(verb, sentence_with_word_array[index].words[verb_index]);
+        if(is_base_form_of_verb(verb)) {
+            return 1;
         }
-        verb_index = quotation_index + 2;
     }
 
-    char verb[1023];
-    strcpy(verb, sentence_with_word_array[index].words[verb_index]);
-
-    if(is_base_form_of_verb(verb)) {
-        return 1;
-    }
+    
 
     return 0;
 }
@@ -475,28 +443,40 @@ int is_present_indifinite(int index) {
 int is_present_continuous(int index) {
     int subject_index = 0, aux_verb_index = 1, v_ing_index = 2;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {
         
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     subject_index = quotation_index + 1, aux_verb_index = quotation_index + 2, v_ing_index = quotation_index + 3;
+    // }
+
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 1; i++) {
+        aux_verb_index = i;
+        v_ing_index = i + 1;
+        char aux_verb[1023], v_ing[1023];
+        strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
+        strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
+
+        if((is_both_equal_word(aux_verb, "am") || is_both_equal_word(aux_verb, "is") || is_both_equal_word(aux_verb, "are"))&& is_verb_ing(v_ing)) {
+            return 1;
         }
-        subject_index = quotation_index + 1, aux_verb_index = quotation_index + 2, v_ing_index = quotation_index + 3;
     }
     
 
-    char aux_verb[1023], v_ing[1023];
-    strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
-    strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
+    // char aux_verb[1023], v_ing[1023];
+    // strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
+    // strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
 
-    if((is_both_equal_word(aux_verb, "am") || is_both_equal_word(aux_verb, "is") || is_both_equal_word(aux_verb, "are"))&& is_verb_ing(v_ing)) {
-        return 1;
-    }
+    // if((is_both_equal_word(aux_verb, "am") || is_both_equal_word(aux_verb, "is") || is_both_equal_word(aux_verb, "are"))&& is_verb_ing(v_ing)) {
+    //     return 1;
+    // }
 
     return 0;
 }
@@ -504,59 +484,64 @@ int is_present_continuous(int index) {
 int is_present_perfect(int index) {
     int subject_index = 0, aux_verb_index = 1, verb_index = 2;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {
         
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     subject_index = quotation_index + 1, aux_verb_index = quotation_index + 2, verb_index = quotation_index + 3;
+    // }
+
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 1; i++) {
+        aux_verb_index = i, verb_index = i + 1;
+        char aux_verb[1023], past_participle_verb[1023];
+        strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
+        strcpy(past_participle_verb, sentence_with_word_array[index].words[verb_index]);
+
+        if((is_both_equal_word(aux_verb, "has") || is_both_equal_word(aux_verb, "have")) && is_past_participle(past_participle_verb)) {
+            return 1;
         }
-        subject_index = quotation_index + 1, aux_verb_index = quotation_index + 2, verb_index = quotation_index + 3;
     }
     
-
-    char aux_verb[1023], past_participle_verb[1023];
-    strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
-    strcpy(past_participle_verb, sentence_with_word_array[index].words[verb_index]);
-
-    if((is_both_equal_word(aux_verb, "has") || is_both_equal_word(aux_verb, "have")) && is_past_participle(past_participle_verb)) {
-        return 1;
-    }
-
     return 0;
 }
 
 int is_present_perfect_continuous(int index) {
     int subject_index = 0, aux_verb_index = 1, been_index = 2, v_ing_index = 3;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {
         
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     subject_index = quotation_index + 1, aux_verb_index = quotation_index + 2, been_index = quotation_index + 3, v_ing_index = quotation_index + 4;
+    // }
+
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 2; i++) {
+        aux_verb_index = i, been_index = i + 1, v_ing_index = i + 2;
+        char aux_verb[1023], v_ing[1023], been[1023];
+
+        strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
+        strcpy(been, sentence_with_word_array[index].words[been_index]);
+        strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
+
+        if(((is_both_equal_word(aux_verb, "has") || is_both_equal_word(aux_verb, "have")) && is_both_equal_word(been, "been") )&& is_verb_ing(v_ing)) {
+            return 1;
         }
-        subject_index = quotation_index + 1, aux_verb_index = quotation_index + 2, been_index = quotation_index + 3, v_ing_index = quotation_index + 4;
     }
     
-
-    char aux_verb[1023], v_ing[1023], been[1023];
-    strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
-    strcpy(been, sentence_with_word_array[index].words[been_index]);
-    strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
-
-    if(((is_both_equal_word(aux_verb, "has") || is_both_equal_word(aux_verb, "have")) && is_both_equal_word(been, "been") )&& is_verb_ing(v_ing)) {
-        return 1;
-    }
-
     return 0;
 }
 
@@ -564,26 +549,30 @@ int is_present_perfect_continuous(int index) {
 int is_past_indifinite(int index) {
     int verb_index = 1;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {
         
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     verb_index = quotation_index + 2;
+    // }
+
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+        char verb[1023];
+        strcpy(verb, sentence_with_word_array[index].words[verb_index]);
+
+        if(is_past_form_of_verb(verb)) {
+            return 1;
         }
-        verb_index = quotation_index + 2;
     }
 
-    char verb[1023];
-    strcpy(verb, sentence_with_word_array[index].words[verb_index]);
-
-    if(is_past_form_of_verb(verb)) {
-        return 1;
-    }
+    
 
     return 0;
 }
@@ -591,56 +580,61 @@ int is_past_indifinite(int index) {
 int is_past_continuous(int index) {
     int subject_index = 0, aux_verb_index = 1, v_ing_index = 2;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {
         
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     aux_verb_index = quotation_index + 2, v_ing_index = quotation_index + 3;
+    // }
+
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 1; i++) {
+        aux_verb_index = i, v_ing_index = i + 1;
+        char aux_verb[1023], v_ing[1023];
+        strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
+        strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
+
+        if((is_both_equal_word(aux_verb, "was") || is_both_equal_word(aux_verb, "were"))&& is_verb_ing(v_ing)) {
+            return 1;
         }
-        aux_verb_index = quotation_index + 2, v_ing_index = quotation_index + 3;
+
     }
     
-
-    char aux_verb[1023], v_ing[1023];
-    strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
-    strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
-
-    if((is_both_equal_word(aux_verb, "was") || is_both_equal_word(aux_verb, "were"))&& is_verb_ing(v_ing)) {
-        return 1;
-    }
-
     return 0;
 }
 
 int is_past_perfect(int index) {
     int subject_index = 0, aux_verb_index = 1, v_ing_index = 2;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {
         
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
-        }
-        aux_verb_index = quotation_index + 2, v_ing_index = quotation_index + 3;
-    }
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     aux_verb_index = quotation_index + 2, v_ing_index = quotation_index + 3;
+    // }
     
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 1; i++) {
+        aux_verb_index = i, v_ing_index = i + 1;
+        char aux_verb[1023], past_participle_verb[1023];
+        strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
+        strcpy(past_participle_verb, sentence_with_word_array[index].words[v_ing_index]);
 
-    char aux_verb[1023], past_participle_verb[1023];
-    strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
-    strcpy(past_participle_verb, sentence_with_word_array[index].words[v_ing_index]);
-
-    if((is_both_equal_word(aux_verb, "had")) && is_past_participle(past_participle_verb)) {
-        return 1;
+        if((is_both_equal_word(aux_verb, "had")) && is_past_participle(past_participle_verb)) {
+            return 1;
+        }
     }
 
     return 0;
@@ -649,28 +643,30 @@ int is_past_perfect(int index) {
 int is_past_perfect_continuous(int index) {
     int subject_index = 0, aux_verb_index = 1, been_index = 2, v_ing_index = 3;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {
         
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
-        }
-        aux_verb_index = quotation_index + 2, been_index = quotation_index + 3, v_ing_index = quotation_index + 4;
-    }
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     aux_verb_index = quotation_index + 2, been_index = quotation_index + 3, v_ing_index = quotation_index + 4;
+    // }
     
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 2; i++) {
+        aux_verb_index = i, been_index = i + 1, v_ing_index = i + 2;
+        char aux_verb[1023], v_ing[1023], been[1023];
+        strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
+        strcpy(been, sentence_with_word_array[index].words[been_index]);
+        strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
 
-    char aux_verb[1023], v_ing[1023], been[1023];
-    strcpy(aux_verb, sentence_with_word_array[index].words[aux_verb_index]);
-    strcpy(been, sentence_with_word_array[index].words[been_index]);
-    strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
-
-    if(((is_both_equal_word(aux_verb, "had")) && is_both_equal_word(been, "been") )&& is_verb_ing(v_ing)) {
-        return 1;
+        if(((is_both_equal_word(aux_verb, "had")) && is_both_equal_word(been, "been") )&& is_verb_ing(v_ing)) {
+            return 1;
+        }
     }
 
     return 0;
@@ -680,26 +676,29 @@ int is_past_perfect_continuous(int index) {
 int is_future_indifinite(int index) {
     int will_index = 1, verb_index = 2;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {
         
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     will_index = quotation_index + 2, verb_index = quotation_index + 3;
+    // }
+
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 1; i++) {
+        will_index = i, verb_index = i + 1;
+        char verb[1023], will[1023];
+        strcpy(verb, sentence_with_word_array[index].words[verb_index]);
+        strcpy(will, sentence_with_word_array[index].words[will_index]);
+
+        if(is_both_equal_word("will", will) && is_base_form_of_verb(verb)) {
+            return 1;
         }
-        will_index = quotation_index + 2, verb_index = quotation_index + 3;
-    }
-
-    char verb[1023], will[1023];
-    strcpy(verb, sentence_with_word_array[index].words[verb_index]);
-    strcpy(will, sentence_with_word_array[index].words[will_index]);
-
-    if(is_both_equal_word("will", will) && is_base_form_of_verb(verb)) {
-        return 1;
     }
 
     return 0;
@@ -708,28 +707,31 @@ int is_future_indifinite(int index) {
 int is_future_continuous(int index) {
     int subject_index = 0, will_index = 1, be_index = 2, v_ing_index = 3;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {
         
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
-        }
-        will_index = quotation_index + 2, be_index = quotation_index + 3, v_ing_index = quotation_index + 4;
-    }
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     will_index = quotation_index + 2, be_index = quotation_index + 3, v_ing_index = quotation_index + 4;
+    // }
     
 
-    char will[1023], v_ing[1023], be[1023];
-    strcpy(will, sentence_with_word_array[index].words[will_index]);
-    strcpy(be, sentence_with_word_array[index].words[be_index]);
-    strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 2; i++) {
+        will_index = i, be_index = i + 1, v_ing_index = i + 2;
+        char will[1023], v_ing[1023], be[1023];
+        strcpy(will, sentence_with_word_array[index].words[will_index]);
+        strcpy(be, sentence_with_word_array[index].words[be_index]);
+        strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
 
-    if(((is_both_equal_word(will, "will")) && is_both_equal_word(be, "be") )&& is_verb_ing(v_ing)) {
-        return 1;
+        if(((is_both_equal_word(will, "will")) && is_both_equal_word(be, "be") )&& is_verb_ing(v_ing)) {
+            return 1;
+        }
     }
 
     return 0;
@@ -738,28 +740,32 @@ int is_future_continuous(int index) {
 int is_future_perfect(int index) {
     int subject_index = 0, will_index = 1, have_index = 2, verb_index = 3;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {
         
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
-        }
-        will_index = quotation_index + 2, have_index = quotation_index + 3, verb_index = quotation_index + 4;
-    }
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     will_index = quotation_index + 2, have_index = quotation_index + 3, verb_index = quotation_index + 4;
+    // }
     
 
-    char will[1023], verb[1023], have[1023];
-    strcpy(will, sentence_with_word_array[index].words[will_index]);
-    strcpy(have, sentence_with_word_array[index].words[have_index]);
-    strcpy(verb, sentence_with_word_array[index].words[verb_index]);
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 2; i++) {
+        will_index = i, have_index = i + 1, verb_index = i + 2;
+        char will[1023], verb[1023], have[1023];
 
-    if(((is_both_equal_word(will, "will")) && is_both_equal_word(have, "have") )&& is_past_participle(verb)) {
-        return 1;
+        strcpy(will, sentence_with_word_array[index].words[will_index]);
+        strcpy(have, sentence_with_word_array[index].words[have_index]);
+        strcpy(verb, sentence_with_word_array[index].words[verb_index]);
+
+        if(((is_both_equal_word(will, "will")) && is_both_equal_word(have, "have") )&& is_past_participle(verb)) {
+            return 1;
+        }
     }
 
     return 0;
@@ -768,30 +774,153 @@ int is_future_perfect(int index) {
 int is_future_perfect_continuous(int index) {
     int subject_index = 0, will_index = 1, have_index = 2, been_index = 3, v_ing_index = 4;
 
-    int quotation_index;
-    if(is_direct_sentence(index)) {
+    // int quotation_index;
+    // if(is_direct_sentence(index)) {
         
-        for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
-            char current_word[1023];
-            strcpy(current_word, sentence_with_word_array[index].words[i]);
-            if(is_both_equal_word(current_word, "\"")) {
-                quotation_index = i;
-                break;
-            }
-        }
-        will_index = quotation_index + 2, have_index = quotation_index + 3, been_index = 4, v_ing_index = quotation_index + 5;
-    }
+    //     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
+    //         char current_word[1023];
+    //         strcpy(current_word, sentence_with_word_array[index].words[i]);
+    //         if(is_both_equal_word(current_word, "\"")) {
+    //             quotation_index = i;
+    //             break;
+    //         }
+    //     }
+    //     will_index = quotation_index + 2, have_index = quotation_index + 3, been_index = 4, v_ing_index = quotation_index + 5;
+    // }
     
 
-    char will[1023], v_ing[1023], have[1023], been[1023];
-    strcpy(will, sentence_with_word_array[index].words[will_index]);
-    strcpy(have, sentence_with_word_array[index].words[have_index]);
-    strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
-    strcpy(been, sentence_with_word_array[index].words[been_index]);
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 3; i++) {
+        will_index = i, have_index = i + 1, been_index = i + 2, v_ing_index = i + 3;
+        char will[1023], v_ing[1023], have[1023], been[1023];
 
-    if(((is_both_equal_word(will, "will")) && is_both_equal_word(have, "have") && is_both_equal_word("been", been) )&& is_verb_ing(v_ing)) {
-        return 1;
+        strcpy(will, sentence_with_word_array[index].words[will_index]);
+        strcpy(have, sentence_with_word_array[index].words[have_index]);
+        strcpy(v_ing, sentence_with_word_array[index].words[v_ing_index]);
+        strcpy(been, sentence_with_word_array[index].words[been_index]);
+
+        if(((is_both_equal_word(will, "will")) && is_both_equal_word(have, "have") && is_both_equal_word("been", been) )&& is_verb_ing(v_ing)) {
+            return 1;
+        }
     }
 
     return 0;
+}
+
+void detect_tense() {
+    printf("Detecting Tense..\n\n");
+    for(int i=0; i<sentence_counter; i++) {
+        // checking present tense
+        if(is_future_continuous(i)) {
+            printf("Sentence no : %d is future continuous tense\n", i + 1);
+        }
+        else if(is_future_perfect_continuous(i)) {
+            printf("Sentence no : %d is future perfect coontinuous tense\n", i + 1);
+        }
+        else if(is_future_perfect(i)) {
+            printf("Sentence no : %d is future perfect tense\n", i + 1);
+        }
+        else if(is_future_indifinite(i)) {
+            printf("Sentence no : %d is future indifinite tense\n", i + 1);
+        }
+        // checking past tense
+        else if(is_past_continuous(i)) {
+            printf("Sentence no : %d is past continuous tense\n", i + 1);
+        }
+        else if(is_past_perfect_continuous(i)) {
+            printf("Sentence no : %d is past perfect coontinuous tense\n", i + 1);
+        }
+        else if(is_past_perfect(i)) {
+            printf("Sentence no : %d is past perfect tense\n", i + 1);
+        }
+        else if(is_past_indifinite(i)) {
+            printf("Sentence no : %d is past indifinite tense\n", i + 1);
+        }
+        // checking present tense
+        else if(is_present_continuous(i)) {
+            printf("Sentence no : %d is present continuous tense\n", i + 1);
+        }
+        else if(is_present_perfect_continuous(i)) {
+            printf("Sentence no : %d is present perfect coontinuous tense\n", i + 1);
+        }
+        else if(is_present_perfect(i)) {
+            printf("Sentence no : %d is present perfect tense\n", i + 1);
+        }
+        else if(is_present_indifinite(i)) {
+            printf("Sentence no : %d is present indifinite tense\n", i + 1);
+        }
+        
+        else {
+            printf("Sorry unable to detect the tense of sentence no: %d.\n", i + 1);
+        }
+    }
+    printf("\n\n");
+}
+
+
+// Detecting Voice
+
+
+int is_passive_voice(int index) {
+    int aux_verb_index = 0, be_index = 0, been_index = 0, verb_index = 0, by_index = 0;
+
+    int words_counter = sentence_with_word_array[index].words_in_sentence;
+
+    char current_words[1024][100];
+    for (int i = 0; i < 1024; i++) {
+        strcpy(current_words[i], sentence_with_word_array[index].words[i]);
+    }
+
+
+    // for simple present and past tense
+    for(int i=0; i<words_counter - 2; i++) {
+        aux_verb_index = i, verb_index = i + 1, by_index = i + 2;
+        if(is_auxiliary_verb(current_words[aux_verb_index]) && is_past_participle(current_words[verb_index]) && is_both_equal_word(current_words[by_index], "by")) {
+            return 1;
+        }
+    }
+    // simple future tense
+    for(int i=0; i<words_counter - 3; i++) {
+        aux_verb_index = i, be_index = i + 1, verb_index = i + 2, by_index = i + 3;
+        if(is_auxiliary_verb(current_words[aux_verb_index]) && is_both_equal_word(current_words[be_index], "be") && is_past_participle(current_words[verb_index]) && is_both_equal_word(current_words[by_index], "by")) {
+            return 1;
+        }
+    }
+
+    // continuous tenses
+    for(int i=0; i<words_counter - 3; i++) {
+        aux_verb_index = i, be_index = i + 1, verb_index = i + 2, by_index = i + 3;
+        if(is_auxiliary_verb(current_words[aux_verb_index]) && is_both_equal_word(current_words[be_index], "being") && is_past_participle(current_words[verb_index]) && is_both_equal_word(current_words[by_index], "by")) {
+            return 1;
+        }
+    }
+
+    // present and past perfect tense
+    for(int i=0; i<words_counter - 3; i++) {
+        aux_verb_index = i, be_index = i + 1, verb_index = i + 2, by_index = i + 3;
+        if(is_auxiliary_verb(current_words[aux_verb_index]) && is_both_equal_word(current_words[be_index], "been") && is_past_participle(current_words[verb_index]) && is_both_equal_word(current_words[by_index], "by")) {
+            return 1;
+        }
+    }
+    //future perfect tense
+    int have_index = 0;
+    for(int i=0; i<words_counter; i++) {
+        aux_verb_index = i, have_index = i + 1, be_index = i + 2, verb_index = i + 3, by_index = i + 4;
+        if(is_auxiliary_verb(current_words[aux_verb_index]) && is_both_equal_word(current_words[have_index], "have") && is_both_equal_word(current_words[be_index], "been") && is_past_participle(current_words[verb_index]) && is_both_equal_word(current_words[by_index], "by")) {
+            return 1;
+        }
+    }
+
+    return 0;
+
+}
+
+void detect_voice() {
+    for(int i=0; i<sentence_counter; i++) {
+        if(is_passive_voice(i)) {
+            printf("Sentence no: %d is a passive voice\n", i + 1);
+        }
+        else {
+            printf("Sentence no: %d is an active voice\n", i + 1);
+        }
+    }
 }
