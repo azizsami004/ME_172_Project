@@ -10,8 +10,6 @@ int sentence_counter = 0;
 FILE *result;
 
 
-
-
 // Creating a array of sentence structure.
 struct sentence {
     int sentence_number;
@@ -21,7 +19,7 @@ struct sentence {
 struct Sentence_with_Word {
     int sentence_number;
     int words_in_sentence;
-    char words[1024][100];
+    char words[1024][100]; 
 } sentence_with_word_array[1001];
 
 
@@ -34,6 +32,8 @@ void create_array_of_sentence_with_word();
 int is_noun(char str[]);
 int is_adjective(char str[]);
 int is_adverb(char str[]);
+
+
 int is_auxiliary_verb(char str[]);
 int is_base_form_of_verb(char str[]);
 int is_past_form_of_verb(char str[]);
@@ -64,13 +64,6 @@ void detect_voice();
 
 
 int main() {
-
-
-    char cwd[1024];
-    getcwd(cwd, sizeof(cwd));
-    printf("Current directory: %s\n", cwd);
-
-
     // Defining Files
     FILE *input, *sentences;
     input = fopen("input.txt", "r");
@@ -98,9 +91,8 @@ int main() {
     repeated_word_check();
     missing_articles();
     ending_punctuation();
-    
-    detect_tense();
 
+    detect_tense();
     detect_voice();
 
     // Closing files
@@ -207,7 +199,6 @@ void sentence_output(FILE *input, FILE *output) {
 }
 
 
-
 void create_array_of_sentence_with_word() {
     for(int i=0; i<sentence_counter; i++) {
         char current_sentence[1024];
@@ -235,7 +226,6 @@ void create_array_of_sentence_with_word() {
                     strcpy(sentence_with_word_array[i].words[word_count++], current_word);
                     memset(current_word, 0, sizeof(current_word));
                     k = 0;
-
                     current_word[k++] = current_sentence[j];       // treating start of new word
                     // printf("%s\n", current_word);
                     strcpy(sentence_with_word_array[i].words[word_count++], current_word);
@@ -249,7 +239,6 @@ void create_array_of_sentence_with_word() {
         sentence_with_word_array[i].sentence_number = i;
         sentence_with_word_array[i].words_in_sentence = word_count;
     }
-
 }
 
 int is_noun(char str[]) {
@@ -341,7 +330,7 @@ void sentence_capitalization() {
         if(temp >= 97 && temp <= 122) {
             // Error
             sentence_array[i].real_sentence[0] = toupper(sentence_array[i].real_sentence[0]);
-            fprintf(result, "'%c' should be capital letter at sentence no. %d.  %s", temp, sentence_array[i].sentence_number, sentence_array[i].real_sentence);
+            fprintf(result, "'%c' should be capital letter at sentence no. %d.\t->\t%s", temp, sentence_array[i].sentence_number, sentence_array[i].real_sentence);
         }
         sentence_array[i].real_sentence[0] = toupper(sentence_array[i].real_sentence[0]);
         printf("%d -> %s\n", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
@@ -354,7 +343,7 @@ void sentence_capitalization() {
             if(flag == 0 && curr_sen[j] == '"') {
                 if(curr_sen[j+1] >= 97 && curr_sen[j+1] <= 122) {
                     sentence_array[i].real_sentence[j+1] = toupper(sentence_array[i].real_sentence[j+1]);
-                    fprintf(result, "'%c' should be capital letter at sentence no. %d.  %s", curr_sen[j+1], sentence_array[i].sentence_number, sentence_array[i].real_sentence);
+                    fprintf(result, "'%c' should be capital letter at sentence no. %d.\t->\t%s", curr_sen[j+1], sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                 }
             }
         }
@@ -424,7 +413,7 @@ void ending_punctuation() {
             if(is_first_word_wh && is_second_word_aux_v) {
                 // printf("%s\t%s\t%c\n", first_word, second_word, last_char);
                 if(last_char != '?') {
-                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '?'.\n", sentence_array[i].sentence_number);
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '?'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                 }
             }
             // printf("%s\t%d\t%s\t%d %c\n", first_word, strlen(first_word), second_word, strlen(second_word), last_char);
@@ -434,18 +423,18 @@ void ending_punctuation() {
             // 1 && 1 == 1
             else if(is_first_word_wh && (is_both_equal_word(second_word, "a") || is_both_equal_word(second_word, "an"))) {
                 if(last_char != '!') {
-                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\n", sentence_array[i].sentence_number);
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                 }
             }
             // wh-word + adjective/adverb
             else if(is_first_word_wh && (is_adjective(second_word) || is_adverb(second_word))) {
                 if(last_char != '!') {
-                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\n", sentence_array[i].sentence_number);
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                 }
             }
             else {
                 if(last_char != '.') {
-                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '.'.\n", sentence_array[i].sentence_number);
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '.'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                 }
             }
 
@@ -506,7 +495,7 @@ void ending_punctuation() {
             if(is_first_word_wh && is_second_word_aux_v) {
                 // printf("%s\t%s\t%c\n", first_word, second_word, last_char);
                 if(last_char != '?') {
-                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '?'.\n", sentence_array[i].sentence_number);
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '?'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                 }
             }
             // printf("%s\t%d\t%s\t%d %c\n", first_word, strlen(first_word), second_word, strlen(second_word), last_char);
@@ -517,18 +506,18 @@ void ending_punctuation() {
             // wh-word + "a"/"an"
             else if(is_first_word_wh && (is_both_equal_word(second_word, "a") || is_both_equal_word(second_word, "an"))) {
                 if(last_char != '!') {
-                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\n", sentence_array[i].sentence_number);
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                 }
             }
             // wh-word + adjective/adverb
             else if(is_first_word_wh && (is_adjective(second_word) || is_adverb(second_word))) {
                 if(last_char != '!') {
-                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\n", sentence_array[i].sentence_number);
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                 }
             }
             else {
                 if(last_char != '.') {
-                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '.'.\n", sentence_array[i].sentence_number);
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '.'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                 }
             }
         }
@@ -549,7 +538,7 @@ void repeated_word_check(){
                 // end of a word
                 if(strlen(curr_str) >= 1 && is_both_equal_word(curr_str, prev_str)) {
                     // printf("%s\t%s\n", prev_str, curr_str);
-                    fprintf(result, "Repeated words at sentence no. %d and it is '%s'.\n", sentence_array[i].sentence_number, curr_str);
+                    fprintf(result, "Repeated words at sentence no. %d and it is '%s'.\t->\t%s", sentence_array[i].sentence_number, curr_str, sentence_array[i].real_sentence);
                 }
                 if(curr_str != '\0') {
                     strcpy(prev_str, curr_str);
@@ -586,7 +575,7 @@ void missing_articles(){
                     if(!is_article(prev_str)) {
                         //printf("The article error is in the sentence no. %d\n", sentence_array[i].sentence_number);
                         //printf("%d %s\n",strlen(prev_str), prev_str);
-                        fprintf(result, "The artice is missing in sentence no. %d..\n", sentence_array[i].sentence_number);
+                        fprintf(result, "The artice is missing in sentence no. %d.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                     }
                 }
                 if(curr_str != '\0') {
@@ -703,7 +692,7 @@ int is_present_indifinite(int index) {
     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
         verb_index = i;
         char verb[1023];
-        strcpy(verb, sentence_with_word_array[index].words[verb_index]);
+        strcpy(verb, sentence_with_word_array[index].words[verb_index]); 
         if(is_base_form_of_verb(verb)) {
             return 1;
         }
@@ -750,7 +739,7 @@ int is_present_perfect(int index) {
 int is_present_perfect_continuous(int index) {
     int subject_index = 0, aux_verb_index = 1, been_index = 2, v_ing_index = 3;
 
-    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 2; i++) {
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 2; i++) {    // They have been running.
         aux_verb_index = i, been_index = i + 1, v_ing_index = i + 2;
         char aux_verb[1023], v_ing[1023], been[1023];
 
@@ -916,47 +905,47 @@ void detect_tense() {
     for(int i=0; i<sentence_counter; i++) {
         // checking present tense
         if(is_future_continuous(i)) {
-            fprintf(result, "Sentence no : %d is future continuous tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is future continuous tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         else if(is_future_perfect_continuous(i)) {
-            fprintf(result, "Sentence no : %d is future perfect coontinuous tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is future perfect coontinuous tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         else if(is_future_perfect(i)) {
-            fprintf(result, "Sentence no : %d is future perfect tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is future perfect tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         else if(is_future_indifinite(i)) {
-            fprintf(result, "Sentence no : %d is future indifinite tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is future indifinite tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         // checking past tense
         else if(is_past_continuous(i)) {
-            fprintf(result, "Sentence no : %d is past continuous tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is past continuous tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         else if(is_past_perfect_continuous(i)) {
-            fprintf(result, "Sentence no : %d is past perfect coontinuous tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is past perfect coontinuous tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         else if(is_past_perfect(i)) {
-            fprintf(result, "Sentence no : %d is past perfect tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is past perfect tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         else if(is_past_indifinite(i)) {
-            fprintf(result, "Sentence no : %d is past indifinite tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is past indifinite tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         // checking present tense
         else if(is_present_continuous(i)) {
-            fprintf(result, "Sentence no : %d is present continuous tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is present continuous tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         else if(is_present_perfect_continuous(i)) {
-            fprintf(result, "Sentence no : %d is present perfect coontinuous tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is present perfect coontinuous tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         else if(is_present_perfect(i)) {
-            fprintf(result, "Sentence no : %d is present perfect tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is present perfect tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         else if(is_present_indifinite(i)) {
-            fprintf(result, "Sentence no : %d is present indifinite tense\n", i + 1);
+            fprintf(result, "Sentence no : %d is present indifinite tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         
         
         else {
-            fprintf(result, "Sorry unable to detect the tense of sentence no: %d.\n", i + 1);
+            fprintf(result, "Sorry unable to detect the tense of sentence no: %d.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
     }
     fprintf(result, "\n\n");
@@ -965,7 +954,7 @@ void detect_tense() {
 // ------------------------------Detecting Voice-----------------------------
 
 int is_passive_voice(int index) {
-    int aux_verb_index = 0, be_index = 0, been_index = 0, verb_index = 0, by_index = 0;
+    int aux_verb_index = 0, be_index = 0, been_index = 0, verb_index = 0, by_index = 0; // {it, was, brow}
 
     int words_counter = sentence_with_word_array[index].words_in_sentence;
 
@@ -976,7 +965,7 @@ int is_passive_voice(int index) {
 
 
     // for simple present and past tense
-    for(int i=0; i<words_counter - 2; i++) {
+    for(int i=0; i<words_counter - 2; i++) {        // The letter is written by her.
         aux_verb_index = i, verb_index = i + 1, by_index = i + 2;
         if(is_auxiliary_verb(current_words[aux_verb_index]) && is_past_participle(current_words[verb_index]) && is_both_equal_word(current_words[by_index], "by")) {
             return 1;
@@ -1021,10 +1010,10 @@ int is_passive_voice(int index) {
 void detect_voice() {
     for(int i=0; i<sentence_counter; i++) {
         if(is_passive_voice(i)) {
-            fprintf(result, "Sentence no: %d is a passive voice\n", i + 1);
+            fprintf(result, "Sentence no: %d is a passive voice.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         else {
-            fprintf(result, "Sentence no: %d is an active voice\n", i + 1);
+            fprintf(result, "Sentence no: %d is an active voice.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
     }
     fprintf(result, "\n\n");
