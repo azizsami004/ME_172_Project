@@ -46,15 +46,15 @@ void ending_punctuation();
 void repeated_word_check();
 void missing_articles();
 
-int is_present_indifinite(int index);
+int is_present_indefinite(int index);
 int is_present_continuous(int index);
 int is_present_perfect(int index);
 int is_present_perfect_continuous(int index);
-int is_past_indifinite(int index);
+int is_past_indefinite(int index);
 int is_past_continuous(int index);
 int is_past_perfect(int index);
 int is_past_perfect_continuous(int index);
-int is_future_indifinite(int index);
+int is_future_indefinite(int index);
 int is_future_continuous(int index);
 int is_future_perfect(int index);
 int is_future_perfect_continuous(int index);
@@ -686,7 +686,7 @@ int is_past_participle(char str[]) {
 
 // ------------------------ Detecting Tense ---------------
 
-int is_present_indifinite(int index) {
+int is_present_indefinite(int index) {
     int verb_index = 1;
 
     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
@@ -739,7 +739,7 @@ int is_present_perfect(int index) {
 int is_present_perfect_continuous(int index) {
     int subject_index = 0, aux_verb_index = 1, been_index = 2, v_ing_index = 3;
 
-    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 2; i++) {    // They have been running.
+    for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 2; i++) {
         aux_verb_index = i, been_index = i + 1, v_ing_index = i + 2;
         char aux_verb[1023], v_ing[1023], been[1023];
 
@@ -756,7 +756,7 @@ int is_present_perfect_continuous(int index) {
 }
 
 
-int is_past_indifinite(int index) {
+int is_past_indefinite(int index) {
     int verb_index = 1;
 
     for(int i=0; i<sentence_with_word_array[index].words_in_sentence; i++) {
@@ -825,7 +825,7 @@ int is_past_perfect_continuous(int index) {
 }
 
 
-int is_future_indifinite(int index) {
+int is_future_indefinite(int index) {
     int will_index = 1, verb_index = 2;
 
     for(int i=0; i<sentence_with_word_array[index].words_in_sentence - 1; i++) {
@@ -913,8 +913,8 @@ void detect_tense() {
         else if(is_future_perfect(i)) {
             fprintf(result, "Sentence no : %d is future perfect tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
-        else if(is_future_indifinite(i)) {
-            fprintf(result, "Sentence no : %d is future indifinite tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
+        else if(is_future_indefinite(i)) {
+            fprintf(result, "Sentence no : %d is future indefinite tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         // checking past tense
         else if(is_past_continuous(i)) {
@@ -926,8 +926,8 @@ void detect_tense() {
         else if(is_past_perfect(i)) {
             fprintf(result, "Sentence no : %d is past perfect tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
-        else if(is_past_indifinite(i)) {
-            fprintf(result, "Sentence no : %d is past indifinite tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
+        else if(is_past_indefinite(i)) {
+            fprintf(result, "Sentence no : %d is past indefinite tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
         // checking present tense
         else if(is_present_continuous(i)) {
@@ -939,11 +939,9 @@ void detect_tense() {
         else if(is_present_perfect(i)) {
             fprintf(result, "Sentence no : %d is present perfect tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
-        else if(is_present_indifinite(i)) {
-            fprintf(result, "Sentence no : %d is present indifinite tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
+        else if(is_present_indefinite(i)) {
+            fprintf(result, "Sentence no : %d is present indefinite tense.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
-        
-        
         else {
             fprintf(result, "Sorry unable to detect the tense of sentence no: %d.\t->\t%s", i + 1, sentence_array[i].real_sentence);
         }
@@ -954,7 +952,7 @@ void detect_tense() {
 // ------------------------------Detecting Voice-----------------------------
 
 int is_passive_voice(int index) {
-    int aux_verb_index = 0, be_index = 0, been_index = 0, verb_index = 0, by_index = 0; // {it, was, brow}
+    int aux_verb_index = 0, be_index = 0, been_index = 0, verb_index = 0, by_index = 0;
 
     int words_counter = sentence_with_word_array[index].words_in_sentence;
 
@@ -965,7 +963,7 @@ int is_passive_voice(int index) {
 
 
     // for simple present and past tense
-    for(int i=0; i<words_counter - 2; i++) {        // The letter is written by her.
+    for(int i=0; i<words_counter - 2; i++) {
         aux_verb_index = i, verb_index = i + 1, by_index = i + 2;
         if(is_auxiliary_verb(current_words[aux_verb_index]) && is_past_participle(current_words[verb_index]) && is_both_equal_word(current_words[by_index], "by")) {
             return 1;
@@ -1004,7 +1002,6 @@ int is_passive_voice(int index) {
     }
 
     return 0;
-
 }
 
 void detect_voice() {

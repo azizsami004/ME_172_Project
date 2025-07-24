@@ -99,61 +99,61 @@ Punctualtion error at sentence no. '34'. Correct puntuation will be '.'.	->	Plea
 
 Detecting Tense..
 
-Sentence no : 1 is present indifinite tense.	->	The quick brown fox jumps over the lazy dog.
-Sentence no : 2 is past indifinite tense.	->	It was a bright sunny day, and everyone was excited for the picnic.
+Sentence no : 1 is present indefinite tense.	->	The quick brown fox jumps over the lazy dog.
+Sentence no : 2 is past indefinite tense.	->	It was a bright sunny day, and everyone was excited for the picnic.
 Sorry unable to detect the tense of sentence no: 3.	->	The weather was perfect!
-Sentence no : 4 is present indifinite tense.	->	Everyone packed their bags, and they were ready to go.
+Sentence no : 4 is present indefinite tense.	->	Everyone packed their bags, and they were ready to go.
 Sorry unable to detect the tense of sentence no: 5.	->	However, John forgot his lunch, and Mary had two sandwiches instead of one.
-Sentence no : 6 is past indifinite tense.	->	They laughed about the situation.
-Sentence no : 7 is present indifinite tense.	->	John and Mary went went to the park with their friends.
-Sentence no : 8 is present indifinite tense.	->	The park was filled with people, children playing on the swings, and adults talking to each other.
+Sentence no : 6 is past indefinite tense.	->	They laughed about the situation.
+Sentence no : 7 is present indefinite tense.	->	John and Mary went went to the park with their friends.
+Sentence no : 8 is present indefinite tense.	->	The park was filled with people, children playing on the swings, and adults talking to each other.
 Sentence no : 9 is past perfect tense.	->	Suddenly, they realized they had lost their way.
-Sentence no : 10 is past indifinite tense.	->	They kept walking, but the streets all looked the same.
+Sentence no : 10 is past indefinite tense.	->	They kept walking, but the streets all looked the same.
 Sorry unable to detect the tense of sentence no: 11.	->	"Where are we going?" asked Mary.
-Sentence no : 12 is present indifinite tense.	->	"I think we are lost!" John said.
-Sentence no : 13 is present indifinite tense.	->	After walking for what seemed like an hour, they found a sign with directions.
-Sentence no : 14 is present indifinite tense.	->	The next thing they knew, they were at the entrance of the park.
-Sentence no : 15 is past indifinite tense.	->	They were tired, but but happy happy to have found their way back.
+Sentence no : 12 is present indefinite tense.	->	"I think we are lost!" John said.
+Sentence no : 13 is present indefinite tense.	->	After walking for what seemed like an hour, they found a sign with directions.
+Sentence no : 14 is present indefinite tense.	->	The next thing they knew, they were at the entrance of the park.
+Sentence no : 15 is past indefinite tense.	->	They were tired, but but happy happy to have found their way back.
 Sorry unable to detect the tense of sentence no: 16.	->	"What a day!" they both exclaimed.
 Sentence no : 17 is past perfect tense.	->	John had learned an important lesson that day, and it was one he would never forget: always double-check your belongings before leaving home.
 Sentence no : 18 is present continuous tense.	->	They are are playing football.
 Sorry unable to detect the tense of sentence no: 19.	->	They are tired?
 Sorry unable to detect the tense of sentence no: 20.	->	What a beautiful day?
-Sentence no : 21 is present indifinite tense.	->	She has an an idea that might work?
+Sentence no : 21 is present indefinite tense.	->	She has an an idea that might work?
 Sorry unable to detect the tense of sentence no: 22.	->	How amazing this is!
 Sorry unable to detect the tense of sentence no: 23.	->	Can you see cat on roof.
 Sorry unable to detect the tense of sentence no: 24.	->	He had book in his hand!
-Sentence no : 25 is past indifinite tense.	->	I found a a mistake in the document?
-Sentence no : 26 is past indifinite tense.	->	We went to to market!
-Sentence no : 27 is past indifinite tense.	->	It was crowded?
-Sentence no : 28 is past indifinite tense.	->	I found a a mistake in the document.
+Sentence no : 25 is past indefinite tense.	->	I found a a mistake in the document?
+Sentence no : 26 is past indefinite tense.	->	We went to to market!
+Sentence no : 27 is past indefinite tense.	->	It was crowded?
+Sentence no : 28 is past indefinite tense.	->	I found a a mistake in the document.
 Sorry unable to detect the tense of sentence no: 29.	->	Why is you late.
 Sorry unable to detect the tense of sentence no: 30.	->	"This is fine", she said.
-Sentence no : 31 is present indifinite tense.	->	Do you know where the the school is.
-Sentence no : 32 is past indifinite tense.	->	I saw a cat in the park?
-Sentence no : 33 is past indifinite tense.	->	It was brown.
-Sentence no : 34 is present indifinite tense.	->	Please bring pen and paper?
-Sentence no : 35 is past indifinite tense.	->	I worked hard.
+Sentence no : 31 is present indefinite tense.	->	Do you know where the the school is.
+Sentence no : 32 is past indefinite tense.	->	I saw a cat in the park?
+Sentence no : 33 is past indefinite tense.	->	It was brown.
+Sentence no : 34 is present indefinite tense.	->	Please bring pen and paper?
+Sentence no : 35 is past indefinite tense.	->	I worked hard.
 Sentence no : 36 is past continuous tense.	->	He was reading.
 Sentence no : 37 is past perfect tense.	->	She had gone.
 Sentence no : 38 is past perfect coontinuous tense.	->	They had been running.
 Sentence no : 39 is present continuous tense.	->	Kareem is going.
 Sentence no : 40 is present perfect tense.	->	Jacky has forgotten.
 Sentence no : 41 is present perfect coontinuous tense.	->	They have been running.
-Sentence no : 42 is future indifinite tense.	->	I will do.
+Sentence no : 42 is future indefinite tense.	->	I will do.
 Sentence no : 43 is future continuous tense.	->	He will be going.
 Sentence no : 44 is future perfect tense.	->	We will have done.
 Sentence no : 45 is future perfect coontinuous tense.	->	You will have been waiting.
-Sentence no : 46 is present indifinite tense.	->	He reads.
+Sentence no : 46 is present indefinite tense.	->	He reads.
 Sentence no : 47 is future perfect tense.	->	"We will have done." Asfi said.
 Sorry unable to detect the tense of sentence no: 48.	->	The letter is written by her.
 Sorry unable to detect the tense of sentence no: 49.	->	The house was built by them.
-Sentence no : 50 is present indifinite tense.	->	The report will be submitted by him.
+Sentence no : 50 is present indefinite tense.	->	The report will be submitted by him.
 Sentence no : 51 is present continuous tense.	->	The cake is being decorated by her.
 Sentence no : 52 is past continuous tense.	->	The project was being reviewed by them.
 Sentence no : 53 is future continuous tense.	->	The room will be being cleaned by him.
 Sorry unable to detect the tense of sentence no: 54.	->	The documents have been signed by her.
-Sentence no : 55 is present indifinite tense.	->	The work had been completed by them.
+Sentence no : 55 is present indefinite tense.	->	The work had been completed by them.
 Sorry unable to detect the tense of sentence no: 56.	->	The message will have been delivered by him.
 
 
