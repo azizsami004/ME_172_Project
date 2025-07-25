@@ -54,3 +54,6 @@ The room will be being cleaned by him.
 The documents have been signed by her.
 The work had been completed by them.
 The message will have been delivered by him.
+Do you know him.
+Do you eat rice?
+Asif said, "Do you know him."

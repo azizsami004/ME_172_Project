@@ -204,10 +204,8 @@ void create_array_of_sentence_with_word() {
         char current_sentence[1024];
         strcpy(current_sentence, sentence_array[i].real_sentence);
         int current_sentence_length = strlen(sentence_array[i].real_sentence);
-
         char current_word[200];
         int k = 0, word_count = 0;
-
         for(int j=0; j<current_sentence_length; j++) {
             if(current_sentence[j] == ' ') {
                 if(strlen(current_word) == 0) {
@@ -222,7 +220,6 @@ void create_array_of_sentence_with_word() {
             }
             else {
                 if(current_sentence[j] == '"' || current_sentence[j] == '\'' || current_sentence[j] == ',' || current_sentence[j] == '.' || current_sentence[j] == '?' || current_sentence[j] == '!') {
-                    //printf("%s\n", current_word);       // considering end of word
                     strcpy(sentence_with_word_array[i].words[word_count++], current_word);
                     memset(current_word, 0, sizeof(current_word));
                     k = 0;
@@ -411,16 +408,17 @@ void ending_punctuation() {
             }
             // checking if interrogative sentence
             if(is_first_word_wh && is_second_word_aux_v) {
-                // printf("%s\t%s\t%c\n", first_word, second_word, last_char);
                 if(last_char != '?') {
                     fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '?'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                 }
             }
-            // printf("%s\t%d\t%s\t%d %c\n", first_word, strlen(first_word), second_word, strlen(second_word), last_char);
-
+            else if(is_auxiliary_verb(first_word)) {
+                if(last_char != '?') {
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '?'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
+                }
+            }
             // for exclamatory sentence
             // wh-word + "a"/"an"
-            // 1 && 1 == 1
             else if(is_first_word_wh && (is_both_equal_word(second_word, "a") || is_both_equal_word(second_word, "an"))) {
                 if(last_char != '!') {
                     fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '!'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
@@ -454,7 +452,7 @@ void ending_punctuation() {
                 if(is_opening_quotation_encountered && current_sentence[j] != '"') sentence_inside_quotation[c_i++] = current_sentence[j];
                 if(!is_opening_quotation_encountered && current_sentence[j] == '"') is_opening_quotation_encountered = 1;
             }
-            // printf("%s\n", sentence_inside_quotation;
+
             int f_i = 0, s_i = 0, blank_cnt = 0;
             int inside_quote_sentence_lenght = strlen(sentence_inside_quotation);
             char last_char = sentence_inside_quotation[inside_quote_sentence_lenght - 1];
@@ -498,9 +496,11 @@ void ending_punctuation() {
                     fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '?'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
                 }
             }
-            // printf("%s\t%d\t%s\t%d %c\n", first_word, strlen(first_word), second_word, strlen(second_word), last_char);
-
-
+            else if(is_auxiliary_verb(first_word)) {
+                if(last_char != '?') {
+                    fprintf(result, "Punctualtion error at sentence no. '%d'. Correct puntuation will be '?'.\t->\t%s", sentence_array[i].sentence_number, sentence_array[i].real_sentence);
+                }
+            }
 
             // for exclamatory sentence
             // wh-word + "a"/"an"

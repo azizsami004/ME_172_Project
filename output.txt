@@ -78,6 +78,11 @@ The artice is missing in sentence no. 52.	->	The project was being reviewed by t
 The artice is missing in sentence no. 53.	->	The room will be being cleaned by him.
 The artice is missing in sentence no. 53.	->	The room will be being cleaned by him.
 The artice is missing in sentence no. 56.	->	The message will have been delivered by him.
+The artice is missing in sentence no. 57.	->	Do you know him.
+The artice is missing in sentence no. 58.	->	Do you eat rice?
+The artice is missing in sentence no. 58.	->	Do you eat rice?
+The artice is missing in sentence no. 58.	->	Do you eat rice?
+The artice is missing in sentence no. 59.	->	Asif said, "Do you know him."
 
 
 This is Punctuation error..
@@ -87,14 +92,18 @@ Punctualtion error at sentence no. '12'. Correct puntuation will be '.'.	->	"I t
 Punctualtion error at sentence no. '19'. Correct puntuation will be '.'.	->	They are tired?
 Punctualtion error at sentence no. '20'. Correct puntuation will be '!'.	->	What a beautiful day?
 Punctualtion error at sentence no. '21'. Correct puntuation will be '.'.	->	She has an an idea that might work?
+Punctualtion error at sentence no. '23'. Correct puntuation will be '?'.	->	Can you see cat on roof.
 Punctualtion error at sentence no. '24'. Correct puntuation will be '.'.	->	He had book in his hand!
 Punctualtion error at sentence no. '25'. Correct puntuation will be '.'.	->	I found a a mistake in the document?
 Punctualtion error at sentence no. '26'. Correct puntuation will be '.'.	->	We went to to market!
 Punctualtion error at sentence no. '27'. Correct puntuation will be '.'.	->	It was crowded?
 Punctualtion error at sentence no. '29'. Correct puntuation will be '?'.	->	Why is you late.
 Punctualtion error at sentence no. '30'. Correct puntuation will be '.'.	->	"This is fine", she said.
+Punctualtion error at sentence no. '31'. Correct puntuation will be '?'.	->	Do you know where the the school is.
 Punctualtion error at sentence no. '32'. Correct puntuation will be '.'.	->	I saw a cat in the park?
 Punctualtion error at sentence no. '34'. Correct puntuation will be '.'.	->	Please bring pen and paper?
+Punctualtion error at sentence no. '57'. Correct puntuation will be '?'.	->	Do you know him.
+Punctualtion error at sentence no. '59'. Correct puntuation will be '?'.	->	Asif said, "Do you know him."
 
 
 Detecting Tense..
@@ -155,6 +164,9 @@ Sentence no : 53 is future continuous tense.	->	The room will be being cleaned b
 Sorry unable to detect the tense of sentence no: 54.	->	The documents have been signed by her.
 Sentence no : 55 is present indefinite tense.	->	The work had been completed by them.
 Sorry unable to detect the tense of sentence no: 56.	->	The message will have been delivered by him.
+Sentence no : 57 is present indefinite tense.	->	Do you know him.
+Sentence no : 58 is present indefinite tense.	->	Do you eat rice?
+Sentence no : 59 is past indefinite tense.	->	Asif said, "Do you know him."
 
 
 Sentence no: 1 is an active voice.	->	The quick brown fox jumps over the lazy dog.
@@ -213,5 +225,8 @@ Sentence no: 53 is a passive voice.	->	The room will be being cleaned by him.
 Sentence no: 54 is a passive voice.	->	The documents have been signed by her.
 Sentence no: 55 is a passive voice.	->	The work had been completed by them.
 Sentence no: 56 is a passive voice.	->	The message will have been delivered by him.
+Sentence no: 57 is an active voice.	->	Do you know him.
+Sentence no: 58 is an active voice.	->	Do you eat rice?
+Sentence no: 59 is an active voice.	->	Asif said, "Do you know him."
 
 
