@@ -83,6 +83,7 @@ The artice is missing in sentence no. 58.	->	Do you eat rice?
 The artice is missing in sentence no. 58.	->	Do you eat rice?
 The artice is missing in sentence no. 58.	->	Do you eat rice?
 The artice is missing in sentence no. 59.	->	Asif said, "Do you know him."
+The artice is missing in sentence no. 60.	->	I know he is good.
 
 
 This is Punctuation error..
@@ -167,6 +168,7 @@ Sorry unable to detect the tense of sentence no: 56.	->	The message will have be
 Sentence no : 57 is present indefinite tense.	->	Do you know him.
 Sentence no : 58 is present indefinite tense.	->	Do you eat rice?
 Sentence no : 59 is past indefinite tense.	->	Asif said, "Do you know him."
+Sentence no : 60 is present indefinite tense.	->	I know he is good.
 
 
 Sentence no: 1 is an active voice.	->	The quick brown fox jumps over the lazy dog.
@@ -228,5 +230,6 @@ Sentence no: 56 is a passive voice.	->	The message will have been delivered by h
 Sentence no: 57 is an active voice.	->	Do you know him.
 Sentence no: 58 is an active voice.	->	Do you eat rice?
 Sentence no: 59 is an active voice.	->	Asif said, "Do you know him."
+Sentence no: 60 is an active voice.	->	I know he is good.
 
 
